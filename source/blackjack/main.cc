@@ -49,14 +49,15 @@ int main(int argc, char** argv)
     print("exe path: {}", fs::current_path().string());
 
     const auto to_radians = [](f32 angle) {
-        return angle * 3.14159265358979323846f / 180.0f;
+        return (angle * 3.14159265358979323846f) / 180.0f;
     };
 
-    const f32 pi_4 = 3.14159265358979323846f * 0.75f;
+    const f32 pi_4 = 3.14159265358979323846f * 0.5f;
+    
     mat4<> transform = mat4<>(1.0f);
-    move(transform, {(1280-img.width)/2.0f, (720.0f-img.height)/2.0f, 0.0f });
-    scale(transform, { 0.75, 0.75, 0.0 });
-    rotate(transform, {to_radians(20.0), 0.0, 0.0f});
+    move(transform, { 600.0f, 200.0f, 0.0f });
+    scale(transform, { 0.75f, 0.75f, 0.0f });
+    rotate(transform, to_radians(-5.0f), { 0.0f, 0.0f, 1.0f });
 
     mesh_renderer ah = mesh_renderer(img);
     ah.set_transform(transform);
@@ -92,7 +93,9 @@ int main(int argc, char** argv)
 
         if (win.key_pressed(key::up))
             move(transform, { 0.0, -v, 0.0f });
-
+        
+        if (win.key_pressed(key::space))
+            rotate(transform, to_radians(30.0f) * d, { 0.0f, 0.0f, 1.0f });
         
         ah.set_transform(transform);
         renderer.next_frame();

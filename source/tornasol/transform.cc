@@ -64,36 +64,31 @@ export namespace tornasol
     }
 
     template<typename T = f32>
-    mat4<T>& rotate(mat4<T>& m, const vec3<T>& v)
-    {
-        // where v is a vector in the form (x, y, z)
-        // of angles to rotate
-        // x is the angle to rotate around the x axis
-        // y is the angle to rotate around the y axis
-        // z is the angle to rotate around the z axis
+    mat4<T>& rotate(mat4<T>& m, T a,  const vec3<T>& v)
+    {   
+        T c = cos(a);
+        T s = sin(a);
 
-        // create the rotation matrices
-        mat4<T> rx(T(1));
-        rx[1][1] = +cos(v.x);
-        rx[1][2] = -sin(v.x);
-        rx[2][1] = +sin(v.x);
-        rx[2][2] = +cos(v.x);
-        mat4<T> ry(T(1));
-        ry[0][0] = +cos(v.y);
-        ry[0][2] = +sin(v.y);
-        ry[2][0] = -sin(v.y);
-        ry[2][2] = +cos(v.y);
-        mat4<T> rz(T(1));
-        rz[0][0] = +cos(v.z);
-        rz[0][1] = -sin(v.z);
-        rz[1][0] = +sin(v.z);
-        rz[1][1] = +cos(v.z);
+        vec3<T> axis = normalize(v);
+        vec3<T> temp = (T(1)-c) * axis;
+        
+        mat4<T> r;
+        r[0][0] = c + temp.x * axis.x;
+        r[0][1] = temp.x * axis.y + s * axis.z;
+        r[0][2] = temp.x * axis.z - s * axis.y;
+        r[1][0] = temp.y * axis.x - s * axis.z;
+        r[1][1] = c + temp.y * axis.y;
+        r[1][2] = temp.y * axis.z + s * axis.x;
+        r[2][0] = temp.z * axis.x + s * axis.y;
+        r[2][1] = temp.z * axis.y - s * axis.x;
+        r[2][2] = c + temp.z * axis.z;
 
-        // rotate the matrix
-        m = (rz + ry + rx) * m;
+        mat4<T> z;
+        z[0] = m[0] * r[0][0] + m[1] * r[0][1] + m[2] * r[0][2];
+        z[1] = m[0] * r[1][0] + m[1] * r[1][1] + m[2] * r[1][2];
+        z[2] = m[0] * r[2][0] + m[1] * r[2][1] + m[2] * r[2][2];
+        z[3] = m[3];
+        m = z;
         return m;
     }
-
-
-
 }
