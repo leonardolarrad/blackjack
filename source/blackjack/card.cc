@@ -17,3 +17,72 @@
        misrepresented as being the original software.
     3. This notice may not be removed or altered from any source distribution.
 */
+
+export module blackjack:card;
+import std.core;
+import std.filesystem;
+import tornasol;
+
+using namespace std;
+using namespace tornasol;
+
+export namespace blackjack {
+
+    enum class card_suit 
+    {
+        clubs    = 1, // ♣
+        diamonds = 2, // ♦
+        hearts   = 3, // ♥
+        spades   = 4  // ♠
+    };
+
+    string suit_name(card_suit suit)
+    {
+        switch (suit) {
+            case card_suit::clubs:    return "clubs";
+            case card_suit::diamonds: return "diamonds";
+            case card_suit::hearts:   return "hearts";
+            case card_suit::spades:   return "spades";
+            default:                  return "";
+        }
+    }
+
+    string suit_pip(card_suit suit) 
+    {
+        switch (suit) {
+            case card_suit::clubs:    return "♣";
+            case card_suit::diamonds: return "♦";
+            case card_suit::hearts:   return "♥";
+            case card_suit::spades:   return "♠";
+            default:                  return "";
+        }
+    }
+
+    class card : public entity {
+    private:
+        texture_renderer tex;
+
+        card_suit suit;
+        u8 number;
+        
+    public:
+        card(card_suit suit, number number)) {
+            
+        }
+
+        void update(const input& input) override
+        {
+            input.get_last_time()
+            input.get_curr_time() 
+            f32 d = input.get_delta();
+        }
+
+        void render() override {
+            texture.render();
+        }
+        
+        render_graph render() {
+            return tex.render();
+        }
+    };
+}
