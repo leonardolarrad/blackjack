@@ -58,8 +58,12 @@ export namespace tornasol
         {
             win.make_context_current();
             size2<i32> viewport = win.get_size();
+            
             glad.load();
             gl::viewport(0, 0, viewport.w, viewport.h);
+            gl::enable(gl::multisample);
+            gl::enable(gl::blend);
+            gl::blend_func(gl::src_alpha, gl::one_minus_src_alpha);
             win.on_framebuffer_resize = [](size2<> s) {
                 gl::viewport(0, 0, s.w, s.h);
             };
@@ -130,7 +134,6 @@ export namespace tornasol
             gl::draw_elements(gl::triangles, 6, gl::type_uint, 0);
 
             ++stat.calls;
-            cout << stat.calls << endl;
         }
 
         void present() {

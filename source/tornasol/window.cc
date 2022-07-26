@@ -64,6 +64,7 @@ export namespace tornasol
                 (int) glfw::gl_profile::core);
             glfw::window_hint(glfw::attribute::visible, false);
             glfw::window_hint(glfw::attribute::resizable, resizable);
+            glfw::window_hint(glfw::attribute::samples, 4);
 
             handle = glfw::create_window(size.w, size.h,
                 title.data(), nullptr, nullptr);

@@ -70,8 +70,8 @@ export namespace tornasol
        }
 
        void load(const image& img) {
-           gl::tex_image_2d(gl::texture_2d, 0, gl::rgb, img.width, img.height,
-               0, gl::rgb, gl::type_ubyte, img.data);
+           gl::tex_image_2d(gl::texture_2d, 0, gl::rgba, img.width, img.height,
+               0, gl::rgba, gl::type_ubyte, img.data);
        }
 
        void generate_mipmap() {

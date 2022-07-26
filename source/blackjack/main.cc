@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     renderer renderer(glad, win);
     renderer.set_clear_color(0x003322FF);
 
-    image img(fs::path(L"./content/cards/ah.png"));  
+    image img(fs::path(L"./content/cards/1b.png"));  
     print("exe path: {}", fs::current_path().string());
 
     const auto to_radians = [](f32 angle) {
@@ -80,7 +80,6 @@ int main(int argc, char** argv)
         lf = cf;
 
         v = 1000.0 * d;
-        print("{}", d);
 
         if (win.key_pressed(key::right))
             move(transform, { +v, 0.0f, 0.0f });

@@ -92,6 +92,14 @@ export namespace tornasol::gl
         blue                 = GL_BLUE,
         rgb                  = GL_RGB,
         rgba                 = GL_RGBA,
+        // blending
+        blend                = GL_BLEND,
+        one_minus_src_alpha  = GL_ONE_MINUS_SRC_ALPHA,
+        one_minus_dst_alpha  = GL_ONE_MINUS_DST_ALPHA,
+        src_alpha            = GL_SRC_ALPHA,
+        dst_alpha            = GL_DST_ALPHA,
+        // anti-aliasing
+        multisample          = GL_MULTISAMPLE,
     };
 
     void viewport(i32 x, i32 y, i32 width, i32 height) {
@@ -302,6 +310,14 @@ export namespace tornasol::gl
         glGenerateMipmap(target);
     }
     
+    void enable(def cap) {
+        glEnable(cap);
+    }
+
+    void blend_func(def sfactor, def dfactor) {
+        glBlendFunc(sfactor, dfactor);
+    }
+
     void polygon_mode(def face, def mode) {
         glPolygonMode(face, mode);
     }
