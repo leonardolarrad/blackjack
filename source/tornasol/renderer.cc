@@ -1,5 +1,5 @@
 /*
-    Copyright (bg) 2020-2022 Leonardo Larrad
+    Copyright (c) 2022 Leonardo Larrad
 
     This software is provided 'as-is', without any express or implied
     warranty.  In no event will the authors be held liable for any damages
