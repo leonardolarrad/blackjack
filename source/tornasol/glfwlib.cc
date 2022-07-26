@@ -58,17 +58,21 @@ export namespace tornasol::glfw {
         return version(major, minor, rev);
     }
 
-    int init() 
-    { return glfwInit(); } 
+    int init() { 
+        return glfwInit(); 
+    } 
 
-    void terminate()
-    { glfwTerminate(); }   
+    void terminate() { 
+        glfwTerminate(); 
+    }   
 
-    error get_error(const char** desc)
-    { return error(glfwGetError(desc)); }
+    error get_error(const char** desc) { 
+        return error(glfwGetError(desc)); 
+    }
 
-    void set_error_callback(error_func callback) 
-    { glfwSetErrorCallback(callback); }
+    void set_error_callback(error_func callback) {
+        glfwSetErrorCallback(callback); 
+    }
 
     /* window module */
 
@@ -138,161 +142,223 @@ export namespace tornasol::glfw {
         compatibility = GLFW_OPENGL_COMPAT_PROFILE
     };
 
-    void set_default_window_hints() 
-    { glfwDefaultWindowHints(); }
+    void set_default_window_hints() { 
+        glfwDefaultWindowHints(); 
+    }
     
-    void window_hint(attribute hint, int value) 
-    { glfwWindowHint((int)hint, value); }      
+    void window_hint(attribute hint, int value) { 
+        glfwWindowHint((int)hint, value); 
+    }      
 
-    void window_hint(attribute hint, bool value) 
-    { glfwWindowHint((int)hint, (int)value); }  
+    void window_hint(attribute hint, bool value) { 
+        glfwWindowHint((int)hint, (int)value); 
+    }  
 
-    void window_hint(attribute hint, const char* value) 
-    { glfwWindowHintString((int)hint, value); }
+    void window_hint(attribute hint, const char* value) { 
+        glfwWindowHintString((int)hint, value); 
+    }
     
     window_handle create_window(int width, int height, const char* title,
         monitor_handle monitor, window_handle share) 
-    { return glfwCreateWindow(width, height, title, monitor, share); }
+    { 
+        return glfwCreateWindow(width, height, title, monitor, share); 
+    }
     
-    void destroy_window(window_handle window) 
-    { glfwDestroyWindow(window); }
+    void destroy_window(window_handle window) { 
+        glfwDestroyWindow(window); 
+    }
             
-    void set_window_user_pointer(window_handle window, user_handle pointer) 
-    { glfwSetWindowUserPointer(window, pointer); }
+    void set_window_user_pointer(window_handle window, user_handle pointer) { 
+        glfwSetWindowUserPointer(window, pointer); 
+    }
 
-    user_handle get_window_user_pointer(window_handle window) 
-    { return glfwGetWindowUserPointer(window); }
+    user_handle get_window_user_pointer(window_handle window) { 
+        return glfwGetWindowUserPointer(window); 
+    }
 
-    bool window_should_close(window_handle window) 
-    { return (bool) glfwWindowShouldClose(window); }
+    bool window_should_close(window_handle window) { 
+        return (bool) glfwWindowShouldClose(window); 
+    }
 
-    void set_window_should_close(window_handle window, bool value) 
-    { glfwSetWindowShouldClose(window, (int) value); }
+    void set_window_should_close(window_handle window, bool value) { 
+        glfwSetWindowShouldClose(window, (int) value); 
+    }
 
-    void set_window_title(window_handle window, const char* title) 
-    { glfwSetWindowTitle(window, title); }
+    void set_window_title(window_handle window, const char* title) { 
+        glfwSetWindowTitle(window, title); 
+    }
 
     void set_window_icon(window_handle window, int count, 
-        const image_handle images) 
-    { glfwSetWindowIcon(window, count, images); }
+        const image_handle image) 
+    { 
+        glfwSetWindowIcon(window, count, image); 
+    }
 
     void set_window_monitor(window_handle window, monitor_handle monitor,
         int x, int y, int w, int h, int refresh_rate) 
-    { glfwSetWindowMonitor(window, monitor, x, y, w, h, refresh_rate); }
+    { 
+        glfwSetWindowMonitor(window, monitor, x, y, w, h, refresh_rate); 
+    }
 
-    void set_window_pos(window_handle window, int xpos, int ypos) 
-    { glfwSetWindowPos(window, xpos, ypos); }
+    void set_window_pos(window_handle window, int xpos, int ypos) { 
+        glfwSetWindowPos(window, xpos, ypos); 
+    }
     
-    void get_window_pos(window_handle window, int* xpos, int* ypos) 
-    { glfwGetWindowPos(window, xpos, ypos); }
+    void get_window_pos(window_handle window, int* xpos, int* ypos) { 
+        glfwGetWindowPos(window, xpos, ypos); 
+    }
 
-    void set_window_size(window_handle window, int width, int height) 
-    { glfwSetWindowSize(window, width, height); }
+    void set_window_size(window_handle window, int width, int height) { 
+        glfwSetWindowSize(window, width, height); 
+    }
 
-    void get_window_size(window_handle window, int* width, int* height) 
-    { glfwGetWindowSize(window, width, height); }
+    void get_window_size(window_handle window, int* width, int* height) { 
+        glfwGetWindowSize(window, width, height); 
+    }
 
     void set_window_size_limits(window_handle window, 
         int min_w, int min_h, int max_w, int max_h) 
-    { glfwSetWindowSizeLimits(window, min_w, min_h, max_w, max_h); }
+    { 
+        glfwSetWindowSizeLimits(window, min_w, min_h, max_w, max_h); 
+    }
     
-    void set_window_aspect_ratio(window_handle window, int num, int den) 
-    { glfwSetWindowAspectRatio(window, num, den); }
+    void set_window_aspect_ratio(window_handle window, int num, int den) { 
+        glfwSetWindowAspectRatio(window, num, den); 
+    }
                     
-    void get_window_framebuffer_size(window_handle window, int* w, int* h) 
-    { glfwGetFramebufferSize(window, w, h); }
+    void get_window_framebuffer_size(window_handle window, int* w, int* h) { 
+        glfwGetFramebufferSize(window, w, h); 
+    }
 
-    void set_window_opacity(window_handle window, float opacity) 
-    { glfwSetWindowOpacity(window, opacity); }
+    void set_window_opacity(window_handle window, float opacity) { 
+        glfwSetWindowOpacity(window, opacity); 
+    }
 
-    float get_window_opacity(window_handle window) 
-    { return glfwGetWindowOpacity(window); }
+    float get_window_opacity(window_handle window) { 
+        return glfwGetWindowOpacity(window); 
+    }
 
-    void get_window_content_scale(window_handle window, float* x, float* y) 
-    { glfwGetWindowContentScale(window, x, y); }
+    void get_window_content_scale(window_handle window, float* x, float* y) { 
+        glfwGetWindowContentScale(window, x, y); 
+    }
     
-    void iconify_window(window_handle window) 
-    { glfwIconifyWindow(window); }
+    void iconify_window(window_handle window) { 
+        glfwIconifyWindow(window); 
+    }
 
-    void restore_window(window_handle window) 
-    { glfwRestoreWindow(window); }
+    void restore_window(window_handle window) { 
+        glfwRestoreWindow(window); 
+    }
 
-    void show_window(window_handle window) 
-    { glfwShowWindow(window); }
+    void show_window(window_handle window) { 
+        glfwShowWindow(window); 
+    }
 
-    void hide_window(window_handle window) 
-    { glfwHideWindow(window); }
+    void hide_window(window_handle window) { 
+        glfwHideWindow(window); 
+    }
 
-    void focus_window(window_handle window) 
-    { glfwFocusWindow(window); }
+    void focus_window(window_handle window) { 
+        glfwFocusWindow(window); 
+    }
 
-    void request_window_attention(window_handle window) 
-    { glfwRequestWindowAttention(window); }
+    void request_window_attention(window_handle window) { 
+        glfwRequestWindowAttention(window); 
+    }
 
-    void maximize_window(window_handle window) 
-    { glfwMaximizeWindow(window); }
+    void maximize_window(window_handle window) { 
+        glfwMaximizeWindow(window); 
+    }
 
-    monitor_handle get_window_monitor(window_handle window) 
-    { return glfwGetWindowMonitor(window); }
+    monitor_handle get_window_monitor(window_handle window) { 
+        return glfwGetWindowMonitor(window); 
+    }
 
     void set_window_attribute(window_handle window, 
         attribute attrib, int value) 
-    { glfwSetWindowAttrib(window, (int)attrib, value); }
+    { 
+        glfwSetWindowAttrib(window, (int)attrib, value); 
+    }
 
     void set_window_attribute(window_handle window, 
         attribute attrib, bool value) 
-    { glfwSetWindowAttrib(window, (int)attrib, (int) value); }
+    { 
+        glfwSetWindowAttrib(window, (int)attrib, (int) value); 
+    }
 
     int get_window_attribute(window_handle window, 
         attribute attrib) 
-    { return glfwGetWindowAttrib(window, (int)attrib); }
+    { 
+        return glfwGetWindowAttrib(window, (int)attrib);
+    }
 
     window_pos_func set_window_pos_callback(window_handle window, 
         window_pos_func callback) 
-    { return glfwSetWindowPosCallback(window, callback); }
+    { 
+        return glfwSetWindowPosCallback(window, callback); 
+    }
 
     window_size_func set_window_size_callback(window_handle window, 
         window_size_func callback) 
-    { return glfwSetWindowSizeCallback(window, callback); }
+    { 
+        return glfwSetWindowSizeCallback(window, callback); 
+    }
 
     window_close_func set_window_close_callback(window_handle window, 
         window_close_func callback) 
-    { return glfwSetWindowCloseCallback(window, callback); }
+    { 
+        return glfwSetWindowCloseCallback(window, callback); 
+    }
 
     window_refresh_func set_window_refresh_callback(window_handle window, 
         window_refresh_func callback) 
-    { return glfwSetWindowRefreshCallback(window, callback); }
+    { 
+        return glfwSetWindowRefreshCallback(window, callback); 
+    }
 
     window_focus_func set_window_focus_callback(window_handle window, 
         window_focus_func callback) 
-    { return glfwSetWindowFocusCallback(window, callback); }
+    { 
+        return glfwSetWindowFocusCallback(window, callback); 
+    }
 
     window_iconify_func set_window_iconify_callback(window_handle window, 
         window_iconify_func callback) 
-    { return glfwSetWindowIconifyCallback(window, callback); }
+    { 
+        return glfwSetWindowIconifyCallback(window, callback); 
+    }
 
     window_maximize_func set_window_maximize_callback(window_handle window, 
         window_maximize_func callback) 
-    { return glfwSetWindowMaximizeCallback(window, callback); }
+    { 
+        return glfwSetWindowMaximizeCallback(window, callback); 
+    }
 
     framebuffer_size_func set_window_framebuffer_size_callback(
         window_handle window, framebuffer_size_func callback) 
-    { return glfwSetFramebufferSizeCallback(window, callback); }
+    { 
+        return glfwSetFramebufferSizeCallback(window, callback); 
+    }
 
-    void poll_events() 
-    { glfwPollEvents(); }
+    void poll_events() { 
+        glfwPollEvents(); 
+    }
 
-    void wait_events() 
-    { glfwWaitEvents(); }
+    void wait_events() { 
+        glfwWaitEvents(); 
+    }
 
-    void wait_events_timeout(double timeout) 
-    { glfwWaitEventsTimeout(timeout); }
+    void wait_events_timeout(double timeout) { 
+        glfwWaitEventsTimeout(timeout); 
+    }
 
-    void post_empty_event() 
-    { glfwPostEmptyEvent(); }
+    void post_empty_event() { 
+        glfwPostEmptyEvent(); 
+    }
 
-    void swap_buffers(window_handle window) 
-    { glfwSwapBuffers(window); }
+    void swap_buffers(window_handle window) { 
+        glfwSwapBuffers(window); 
+    }
 
     /* input module */
     
@@ -482,71 +548,93 @@ export namespace tornasol::glfw {
         resize_vertical   = GLFW_VRESIZE_CURSOR
     };
 
-    int get_key_scancode(key key) 
-    { return glfwGetKeyScancode((int)key); }
+    int get_key_scancode(key key) { 
+        return glfwGetKeyScancode((int)key); 
+    }
 
-    input_action get_key(window_handle window, key key) 
-    { return (input_action)glfwGetKey((GLFWwindow*)window, (int)key); }
+    input_action get_key(window_handle window, key key) { 
+        return (input_action)glfwGetKey((GLFWwindow*)window, (int)key); 
+    }
 
-    input_action get_mouse_button(window_handle w, mouse_button b) 
-    { return (input_action)glfwGetMouseButton((GLFWwindow*)w, (int)b); }
+    input_action get_mouse_button(window_handle w, mouse_button b) { 
+        return (input_action)glfwGetMouseButton((GLFWwindow*)w, (int)b); 
+    }
 
-    void get_cursor_pos(window_handle w, double* x, double* y) 
-    { glfwGetCursorPos((GLFWwindow*)w, x, y); }
+    void get_cursor_pos(window_handle w, double* x, double* y) { 
+        glfwGetCursorPos((GLFWwindow*)w, x, y); 
+    }
 
-    void set_cursor_pos(window_handle w, double x, double y) 
-    { glfwSetCursorPos((GLFWwindow*)w, x, y); }
+    void set_cursor_pos(window_handle w, double x, double y) { 
+        glfwSetCursorPos((GLFWwindow*)w, x, y); 
+    }
 
-    key_func set_key_callback(window_handle w, key_func f) 
-    { return (key_func)glfwSetKeyCallback(w, f); }
+    key_func set_key_callback(window_handle w, key_func f) { 
+        return (key_func)glfwSetKeyCallback(w, f); 
+    }
 
-    char_func set_char_callback(window_handle w, char_func f) 
-    { return (char_func)glfwSetCharCallback(w, f); }
+    char_func set_char_callback(window_handle w, char_func f) { 
+        return (char_func)glfwSetCharCallback(w, f); 
+    }
 
     char_mods_func set_char_mods_callback(window_handle w, 
         char_mods_func f)
-    { return (char_mods_func)glfwSetCharModsCallback(w, f); }
+    { 
+        return (char_mods_func)glfwSetCharModsCallback(w, f); 
+    }
 
     mouse_button_func set_mouse_button_callback(window_handle w, 
         mouse_button_func f)
-    { return (mouse_button_func)glfwSetMouseButtonCallback(w, f); }
+    { 
+        return (mouse_button_func)glfwSetMouseButtonCallback(w, f); 
+    }
 
     cursor_pos_func set_cursor_pos_callback(window_handle w, 
         cursor_pos_func f)
-    { return (cursor_pos_func)glfwSetCursorPosCallback(w, f); }
+    { 
+        return (cursor_pos_func)glfwSetCursorPosCallback(w, f); 
+    }
 
     cursor_enter_func set_cursor_enter_callback(window_handle w, 
         cursor_enter_func f)
-    { return (cursor_enter_func)glfwSetCursorEnterCallback(w, f); }
+    { 
+        return (cursor_enter_func)glfwSetCursorEnterCallback(w, f); 
+    }
 
     scroll_func set_scroll_callback(window_handle w, scroll_func f)
-    { return (scroll_func)glfwSetScrollCallback(w, f); }
+    { 
+        return (scroll_func)glfwSetScrollCallback(w, f); 
+    }
 
     /* context module */
     
     using gl_proc         = GLFWglproc;
     using gl_proc_address = void* (*)(const char* name);
 
-    gl_proc get_proc_address(const char* proc_name) 
-        { return glfwGetProcAddress(proc_name); }
+    gl_proc get_proc_address(const char* proc_name) { 
+        return glfwGetProcAddress(proc_name); 
+    }
 
-    void make_context_current(window_handle window) 
-        { glfwMakeContextCurrent(window); }
+    void make_context_current(window_handle window) { 
+        glfwMakeContextCurrent(window); 
+    }
 
-    window_handle get_current_context() 
-        { return glfwGetCurrentContext(); }
+    window_handle get_current_context() { 
+        return glfwGetCurrentContext(); 
+    }
 
-    void swap_interval(int interval) 
-        { glfwSwapInterval(interval); }
+    void swap_interval(int interval) { 
+        glfwSwapInterval(interval); 
+    }
 
-    int extension_supported(const char* extension) 
-        { return glfwExtensionSupported(extension); }
+    int extension_supported(const char* extension) { 
+        return glfwExtensionSupported(extension); 
+    }
 
     float get_time() { 
         return glfwGetTime(); 
     }
 
-} /* namespace tornasol::glfw */
+}
 
 export namespace tornasol {
 
@@ -586,4 +674,4 @@ export namespace tornasol {
         }
     };
 
-} /* namespace tornasol */
+}
