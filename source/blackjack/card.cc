@@ -17,29 +17,3 @@
        misrepresented as being the original software.
     3. This notice may not be removed or altered from any source distribution.
 */
-
-#include <thirdparty/stb/stb_image.h>
-export module tornasol:stbi;
-import std.core;
-using namespace std;
-
-export namespace tornasol::stbi
-{
-   void set_flip_vertically_on_load(bool flip) {
-      stbi_set_flip_vertically_on_load(flip);
-   }
-
-   byte* load(const char* filename, int* x, int* y, int* comp, int req_comp)
-   {
-      byte* data = (byte*) stbi_load(filename, x, y, comp, req_comp);
-      
-      if (data == nullptr)
-         throw runtime_error("Failed to load image");
-      
-      return data;
-   }
-
-   void free(byte* data) {
-      stbi_image_free(data);
-   }
-}
