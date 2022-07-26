@@ -31,19 +31,18 @@ export namespace tornasol
    class image 
    {
    public:
-      i32 width;
-      i32 height;
-      i32 channels;
+
+      i32   width;
+      i32   height;
+      i32   channels;
       byte* data;
 
       image(filesystem::path path) 
       {
          stbi::set_flip_vertically_on_load(true);
 
-         data = stbi::load(
-            path.string().c_str(), 
-            &width, &height, &channels, 0
-         );
+         data = stbi::load(path.string().c_str(), 
+            &width, &height, &channels, 0);
       }
 
       ~image() {

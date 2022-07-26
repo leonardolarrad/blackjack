@@ -45,7 +45,8 @@ int main(int argc, char** argv)
     renderer renderer(glad, win);
     renderer.set_clear_color(0x003322FF);
 
-    image img(fs::path(L"./content/cards/1b.png"));  
+    image img0(fs::path(L"./content/cards/ah.png"));  
+    image img1(fs::path(L"./content/cards/1b.png"));
     print("exe path: {}", fs::current_path().string());
 
     const auto to_radians = [](f32 angle) {
@@ -55,14 +56,17 @@ int main(int argc, char** argv)
     const f32 pi_4 = 3.14159265358979323846f * 0.5f;
     
     mat4<> transform = mat4<>(1.0f);
+    
     move(transform, { 600.0f, 200.0f, 0.0f });
     scale(transform, { 0.75f, 0.75f, 0.0f });
     rotate(transform, to_radians(-5.0f), { 0.0f, 0.0f, 1.0f });
 
-    mesh_renderer ah = mesh_renderer(img);
+    mesh_renderer ah = mesh_renderer(img1);
+    mesh_renderer b1 = mesh_renderer(img0);
     ah.set_transform(transform);
+    
     renderer.add_mesh(ah);
-
+    renderer.add_mesh(b1);
 
     f32 v = 100.0;
     f32 lf = 0.0;
