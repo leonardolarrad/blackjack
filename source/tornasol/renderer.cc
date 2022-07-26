@@ -124,9 +124,9 @@ export namespace tornasol
             mat4<> proj = ortho(0.0f, (f32)screen.w, (f32)screen.h, 0.0f);
 
             mesh.get_vao().bind();
-
             mesh.get_shader().use();
             mesh.get_shader().set_uniform("proj", proj);
+            mesh.get_texture().bind();
 
             if (mesh.is_wireframe())
                 gl::polygon_mode(gl::front_and_back, gl::line);

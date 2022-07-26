@@ -210,12 +210,17 @@ export namespace tornasol {
         }
         
         void set_transform(const mat4<>& m) {
+            program.use();
             program.set_uniform("model", m);
             pending_to_render = true;
         }
 
         shader& get_shader() {
             return program;
+        }
+
+        texture& get_texture () {
+            return tex;
         }
 
         vertex_array& get_vao() {
