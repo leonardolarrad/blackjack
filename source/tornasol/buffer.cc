@@ -56,11 +56,11 @@ export namespace tornasol
             gl::delete_buffer(id);
         }
 
-        u32 get_id() {
+        u32 get_id() const {
             return id;
         }
 
-        u32 get_size() {
+        u32 get_size() const {
             return size;
         }
         
@@ -95,7 +95,7 @@ export namespace tornasol
             gl::delete_vertex_array(id);
         }
         
-        u32 get_id() {
+        u32 get_id() const {
             return id;
         }
         

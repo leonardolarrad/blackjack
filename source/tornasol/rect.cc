@@ -25,46 +25,27 @@ import :vector;
 
 export namespace tornasol 
 { 
-    template <typename T = f32>
-    class rect 
-    {
+    template <typename T = f32> 
+    class rect {
     public:
-        vec2<T> a, b;
+        T x, y, w, h;
 
-        rect() = default;
+        rect(T w, T h) 
+            : x(0), y(0), w(w), h(h) {}        
 
-        rect(vec2<T> a, vec2<T> b)
-            : a(a), b(b) {}
-
-        rect(size2<T> size) 
-            : a(T(0), T(0))
-            , b(size.w, size.h) {}
-
-        bool operator == (const rect<T>& other) const = default;
         bool operator != (const rect<T>& other) const = default;
-            
-        T width()  const { return b.x - a.x; }
-        T height() const { return b.y - a.y; }
-        T area()   const { return width() * height(); }
-        
-        vec2<T> center() const { 
-            return { width() / 2, height() /2}; 
-        }
+        bool operator == (const rect<T>& other) const = default;
 
-        explicit operator size2<T> () const {
-            return { width(), height() };
-        }   
+        explicit 
+        operator vec2<T> () const { return {x, y}; }
 
-        bool contains(vec2<T> point) const 
-        {        
-            return point.x >= a.x && point.x <= b.x &&
-                   point.y >= a.y && point.y <= b.y;        
-        }
+        explicit
+        operator size2<T> () const { return {w, h}; }
 
-        bool contains(rect<T> rect) const 
+        bool contains (const vec2<T>& point) const 
         {
-            return this->a.x <= rect.a.x && this->a.y <= rect.a.y &&
-                   this->b.x >= rect.b.x && this->b.y >= rect.b.y;
+            return point.x >= x && point.x < x + w &&
+                   point.y >= y && point.y < y + h;
         }
     };
 }

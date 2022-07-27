@@ -23,8 +23,24 @@ import :types;
 import :glfw;
 import :vector;
 
-export namespace tornasol 
-{
+export namespace tornasol {
+    
+    void pull_events() { 
+        glfw::poll_events(); 
+    }
+
+    void wait_events() {         
+        glfw::wait_events(); 
+    }
+
+    void wait_events_timeout(f64 timeout) {
+        glfw::wait_events_timeout(timeout);
+    }
+
+    void post_empty_event() {
+        glfw::post_empty_event();
+    }
+
     using key            = glfw::key;
     using key_mod        = glfw::key_mod;
     using key_action     = glfw::input_action;
@@ -33,17 +49,45 @@ export namespace tornasol
     using cursor_mode    = glfw::cursor_mode;
     using cursor_standar = glfw::cursor_standar;
 
-    class input 
-    {
+    class input {
     private:
         glfw::window_handle handle;
+        f32 last_frame;
+        f32 curr_frame;
+        f32 delta;
 
     public:
         input(glfw::window_handle handle) 
-            : handle(handle) {}
+            : handle(handle), 
+              last_frame(0.0f),
+              curr_frame(0.0f),
+              delta(0.0f) {}
 
         glfw::window_handle get_handle() {
             return handle;
+        }
+
+        void update() 
+        {
+            curr_frame = get_time();
+            delta = curr_frame - last_frame;
+            last_frame = curr_frame;
+        }
+
+        f32 get_time() const {
+            return glfw::get_time();
+        }
+
+        f32 get_delta() const {
+            return delta;
+        }
+
+        f32 get_last_frame() const {
+            return last_frame;
+        }
+
+        f32 get_curr_frame() const {
+            return curr_frame;
         }
         
         bool key_pressed(key key) {
@@ -73,24 +117,4 @@ export namespace tornasol
             return vec2<>((f32)x, (f32)y);
         }
     };
-    
-    void pull_events() { 
-        glfw::poll_events(); 
-    }
-
-    void wait_events() {         
-        glfw::wait_events(); 
-    }
-
-    void wait_events_timeout(f64 timeout) {
-        glfw::wait_events_timeout(timeout);
-    }
-
-    void post_empty_event() {
-        glfw::post_empty_event();
-    }
-
-    f32 get_time() {
-        return glfw::get_time();
-    }
 }

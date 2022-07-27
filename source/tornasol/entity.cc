@@ -19,20 +19,34 @@
 */
 
 export module tornasol:entity;
-import matrix;
-import render;
+import :transform;
+import :renderer;
+import :input;
 
 export namespace tornasol 
 {
-    class entity 
-    {
+    class entity {
     public:
-        mat4<> transform;
+        bool enable;
+        transform transform;
 
         entity()
-            : transform(mat4<>(1.0f)) {}
-
-        virtual void update(/*input& in*/f64 delta) = 0;
+            : enable(true) {}
+        // virtual void update(frame frame) frame.delta; frame.input, frame.input.key_released()
+        // virtual void input()
+        virtual void update(const input& input) = 0;
         virtual void render(renderer& renderer) = 0;
+
+        void move(vec3<> v) {
+            transform.move(v);
+        }
+
+        void rotate(vec3<> v) {
+            transform.rotate(v);
+        }
+
+        void scale(vec3<> v) {
+            transform.scale(v);
+        }
     };
 }

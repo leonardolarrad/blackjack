@@ -21,15 +21,14 @@
 export module tornasol:image;
 import :types;
 import :stbi;
-
 import std.core;
 import std.filesystem;
 using namespace std;
+namespace fs = std::filesystem;
 
 export namespace tornasol
 {
-   class image 
-   {
+   class image {
    public:
 
       i32   width;
@@ -37,7 +36,7 @@ export namespace tornasol
       i32   channels;
       byte* data;
 
-      image(filesystem::path path) 
+      image(fs::path path) 
       {
          stbi::set_flip_vertically_on_load(true);
 

@@ -85,14 +85,26 @@
     <ClCompile Include="..\source\tornasol\transform.cc">
       <Filter>tornasol</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\tornasol\mesh.cc">
-      <Filter>tornasol</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\tornasol\image.cc">
       <Filter>tornasol</Filter>
     </ClCompile>
     <ClCompile Include="..\source\tornasol\texture.cc">
       <Filter>tornasol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\tornasol\entity.cc">
+      <Filter>tornasol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\blackjack.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\card.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\client.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\server.cc">
+      <Filter>blackjack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

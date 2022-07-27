@@ -24,7 +24,6 @@ import :buffer;
 import :color;
 import :gl;
 import :glad;
-import :mesh;
 import :rect;
 import :shader;
 import :size;
@@ -32,6 +31,7 @@ import :transform;
 import :types;
 import :vector;
 import :window;
+import :texture;
 
 import std.core;
 using namespace std;
@@ -47,10 +47,8 @@ export namespace tornasol
     class renderer
     {
     private:
-        render_stat stat;
+        render_stat stats;
         window& win;
-        set<mesh_renderer*> requests;
-        color clear_color;
 
     public:
         renderer(glad_dep& glad, window& win)
@@ -68,48 +66,22 @@ export namespace tornasol
                 gl::viewport(0, 0, s.w, s.h);
             };
 
-            stat.frame = 0;
-            stat.calls = 0;
+            stats.frame = 0;
+            stats.calls = 0;
         }
 
         render_stat get_stat() const {
-            return stat;
+            return stats;
         }
 
         window& get_window() const {
             return win;
         }
 
-        void set_clear_color(color c) {
-            clear_color = c;
-        }
-
-        void add_mesh(mesh_renderer& mesh) {
-            requests.insert(&mesh);
-        }
-
-        bool is_pending_to_render() 
+        mat4<> get_proj_mat() const
         {
-            for (auto& r : requests) 
-                if (r->is_pending_to_render())
-                    return true;                
-            
-            return false;
-        }
-         
-        void next_frame() 
-        {
-            if (!is_pending_to_render())
-                return;
-
-            clear(clear_color);
-            for (auto& r: requests) {
-                render(*r); 
-                r->set_pending_to_render(false);
-            }
-                           
-            present();
-            ++stat.frame;
+            size2<i32> viewport = win.get_size();
+            return ortho(0.0f, (f32)viewport.w, (f32)viewport.h, 0.0f, -1.0f, 1.0f);
         }
 
         void clear(color bg)
@@ -118,26 +90,17 @@ export namespace tornasol
             gl::clear(gl::color_buffer_bit);
         }
 
-        void render(mesh_renderer& mesh)
+        void render(texture_renderer& tex) 
         {
-            size2<i32> screen = win.get_size();
-            mat4<> proj = ortho(0.0f, (f32)screen.w, (f32)screen.h, 0.0f);
+            tex.get_vao().bind();
+            tex.set_proj(get_proj_mat());
+            tex.get_texture().bind();
 
-            mesh.get_vao().bind();
-            mesh.get_shader().use();
-            mesh.get_shader().set_uniform("proj", proj);
-            mesh.get_texture().bind();
-
-            if (mesh.is_wireframe())
+            if (tex.is_wireframe())
                 gl::polygon_mode(gl::front_and_back, gl::line);
 
             gl::draw_elements(gl::triangles, 6, gl::type_uint, 0);
-
-            ++stat.calls;
-        }
-
-        void present() {
-            win.swap_buffers();            
+            ++stats.calls;
         }
     };
 }

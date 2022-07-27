@@ -18,15 +18,14 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <cassert>
+#include <assert.h>
 export module tornasol:vector;
 import std.core;
 import :types;
-
 using namespace std;
 
-export namespace tornasol 
-{
+export namespace tornasol {
+
     template <typename T, usize N>
     class vec;
 
@@ -35,8 +34,7 @@ export namespace tornasol
     template <typename T = f32> using vec4 = vec<T, 4>;
 
     template <typename T, usize N>
-    class vec
-    {
+    class vec {
     private: 
         T values[N];
 
@@ -59,8 +57,7 @@ export namespace tornasol
     };
 
     template <typename T>
-    class vec<T, 2>
-    {
+    class vec<T, 2> {
     public:
         T x, y;
 
@@ -81,8 +78,7 @@ export namespace tornasol
     };
 
     template <typename T>
-    class vec<T, 3>
-    {   
+    class vec<T, 3> {   
     public:
         T x, y, z;
 
@@ -110,8 +106,7 @@ export namespace tornasol
     };
 
     template <typename T>
-    class vec<T, 4>
-    {   
+    class vec<T, 4> {   
     public:
         T x, y, z, w;
 

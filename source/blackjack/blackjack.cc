@@ -20,4 +20,5 @@
 
 export module blackjack;
 
-import export :card;
+export import :card;
+export import :client;

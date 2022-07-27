@@ -22,14 +22,15 @@ export module blackjack:card;
 import std.core;
 import std.filesystem;
 import tornasol;
-
 using namespace std;
+namespace fs = std::filesystem;
 using namespace tornasol;
 
 export namespace blackjack {
 
     enum class card_suit 
     {
+        back     = 0, // 🂠
         clubs    = 1, // ♣
         diamonds = 2, // ♦
         hearts   = 3, // ♥
@@ -39,10 +40,11 @@ export namespace blackjack {
     string suit_name(card_suit suit)
     {
         switch (suit) {
+            case card_suit::back:     return "back";
             case card_suit::clubs:    return "clubs";
             case card_suit::diamonds: return "diamonds";
             case card_suit::hearts:   return "hearts";
-            case card_suit::spades:   return "spades";
+            case card_suit::spades:   return "spades";  
             default:                  return "";
         }
     }
@@ -50,6 +52,7 @@ export namespace blackjack {
     string suit_pip(card_suit suit) 
     {
         switch (suit) {
+            case card_suit::back:     return "🂠";
             case card_suit::clubs:    return "♣";
             case card_suit::diamonds: return "♦";
             case card_suit::hearts:   return "♥";
@@ -61,28 +64,33 @@ export namespace blackjack {
     class card : public entity {
     private:
         texture_renderer tex;
-
         card_suit suit;
         u8 number;
         
     public:
-        card(card_suit suit, number number)) {
-            
-        }
-
-        void update(const input& input) override
+        card(card_suit suit, u8 number) 
+            : suit(suit), number(number)
         {
-            input.get_last_time()
-            input.get_curr_time() 
-            f32 d = input.get_delta();
+            string tmp = suit_name(suit)[0] + to_string(number);
+            wstring card_name(tmp.begin(), tmp.end());
+            fs::path path(L"./content/cards/" + card_name + L".png");
+
+            image image(path);
+
+            tex.load_rect({ (f32)image.width, (f32)image.height });
+            tex.load_image(image);
+
+            transform.sca = { 0.75f, 0.75f, 0.75f };
+            tex.set_model(transform.get_matrix());
         }
 
-        void render() override {
-            texture.render();
+        void update(const input& input) override {
+            // pass
+        }
+
+        void render(renderer& renderer) override {
+            renderer.render(tex);
         }
         
-        render_graph render() {
-            return tex.render();
-        }
     };
 }
