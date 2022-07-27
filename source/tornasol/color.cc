@@ -22,8 +22,8 @@ export module tornasol:color;
 import :types;
 import :vector;
 
-export namespace tornasol 
-{
+export namespace tornasol {
+    
     class color
     {
     public:

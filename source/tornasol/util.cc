@@ -32,7 +32,7 @@ export namespace tornasol
     void print(string_view fmt, A&& ...args)
     {
         cout << vformat(fmt, make_format_args(forward<A>(args)...)) 
-            << endl;
+             << endl;
     }
 
     template <typename T, usize N>

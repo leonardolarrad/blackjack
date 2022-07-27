@@ -36,16 +36,18 @@ import :texture;
 import std.core;
 using namespace std;
 
-export namespace tornasol
-{
-    struct render_stat
-    {
+export namespace tornasol {
+
+    class render_stat {
+    public:
         u64 frame;
         u64 calls;
+
+        render_stat() 
+            : frame(0), calls(0) {}
     };
 
-    class renderer
-    {
+    class renderer {
     private:
         render_stat stats;
         window& win;
@@ -65,9 +67,6 @@ export namespace tornasol
             win.on_framebuffer_resize = [](size2<> s) {
                 gl::viewport(0, 0, s.w, s.h);
             };
-
-            stats.frame = 0;
-            stats.calls = 0;
         }
 
         render_stat get_stat() const {

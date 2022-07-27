@@ -23,7 +23,8 @@ import :types;
 
 export namespace tornasol 
 {
-    struct version {
+    class version {
+    public:
         u64 major;
         u64 minor;
         u64 patch;
