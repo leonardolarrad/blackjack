@@ -22,9 +22,11 @@ export module blackjack:card;
 import std.core;
 import std.filesystem;
 import tornasol;
+
 using namespace std;
-namespace fs = std::filesystem;
 using namespace tornasol;
+
+namespace fs = std::filesystem;
 
 export namespace blackjack {
 
@@ -81,7 +83,8 @@ export namespace blackjack {
             tex.set_rect({ (f32)image.width, (f32)image.height });
             tex.set_image(image);
 
-            trans.sca = { 0.75f, 0.75f, 0.75f };
+            trans.sca = { 0.15f, 0.15f, 0.15f };
+            tex.set_model(trans.get_mat());
         }
 
         // non-default-constructible
@@ -93,7 +96,8 @@ export namespace blackjack {
 
         // movable
         card(card&& other)
-            : tex(move(other.tex))
+            : entity(move(other))
+            , tex(move(other.tex))
             , num(other.num)
             , suit(other.suit)
         {
@@ -101,6 +105,7 @@ export namespace blackjack {
 
         card& operator = (card&& other) 
         {
+            entity::operator=(move(other));
             tex = move(other.tex);
             num = other.num;
             suit = other.suit;

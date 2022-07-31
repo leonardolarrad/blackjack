@@ -27,58 +27,72 @@ using namespace tornasol;
 
 export namespace blackjack { 
 
-   class hand : entity {
-   private:
-      // place_holder ?? 
-      vector<card> cards;
+    class hand : public entity {
+    private:
+        // place_holder ?? 
+        vector<card> cards;
 
-   public:            
-      void arrange() 
-      {
-         const vec3<> pivot = trans.pos;
+    public:            
+        void arrange() 
+        {
+            random_device dev;
+            mt19937 rng(dev());
+            uniform_real_distribution<f32> degress(0.0f, 0.5f);
+            uniform_int_distribution<u32> x(0, 10);
+            uniform_int_distribution<u32> y(0, 5);
+                        
+            const vec3<> pivot = trans.pos;
 
-         for (i32 i = 0; i < cards.size(); ++i)
-            cards[i].trans.pos.x = pivot.x + (50 * i);
-      }
+            for (i32 i = 0; i < cards.size(); ++i) 
+            {
+                auto& c = cards[i];
 
-      void add_card(u8 num, card_suit suit) {
-         cards.emplace_back(num, suit);
-         arrange();
-      }
+                c.trans.pos.x = pivot.x + (50 * i) + x(rng);
+                c.trans.pos.y = pivot.y + y(rng);
+                c.trans.rot.z = -degress(rng) * (f32)numbers::pi/180.0f;
+            }                
+        }
 
-      void remove_card(u8 num, card_suit suit) 
-      {
-         //for (auto it = cards.begin(); it != cards.end(); ++it) 
-         //   if (it->get_num() == num && it->get_suit() == suit) {
-         //      cards.erase(it); break;
-         //   }         
-      }
+        void add_card(u8 num, card_suit suit) 
+        {
+            cards.emplace_back(num, suit);
+            arrange();
+        }
 
-      i32 get_size() const { 
-         return cards.size(); 
-      }
+        void remove_card(u8 num, card_suit suit) 
+        {
+            //for (auto it = cards.begin(); it != cards.end(); ++it) 
+            //   if (it->get_num() == num && it->get_suit() == suit) {
+            //      cards.erase(it); break;
+            //   }         
+        }
 
-      i32 get_value() const {
-         i32 value = 0;         
-         for (const auto& c : cards) 
+        i32 get_size() const { 
+            return cards.size(); 
+        }
+
+        i32 get_value() const 
+        {
+            i32 value = 0;         
+            for (const auto& c : cards) 
             value += c.get_value();    
 
-         return value;
-      }
+            return value;
+        }
 
-      bool is_blackjack() const {
-         return cards.size() == 2 && get_value() == 21;
-      }
+        bool is_blackjack() const {
+            return cards.size() == 2 && get_value() == 21;
+        }
 
-      bool is_bust() const {
-         return get_value() > 21;
-      }
+        bool is_bust() const {
+            return get_value() > 21;
+        }
 
-      void render(renderer& renderer) override 
-      {
-         for (auto& c : cards)
+        void render(renderer& renderer) override 
+        {
+            for (auto& c : cards)
             c.render(renderer);
-      }
-   };
+        }
+    };
 
 }

@@ -25,6 +25,7 @@ import :image;
 import :rect;
 import :shader;
 import :types;
+import :util;
 import std.core;
 
 using namespace std;
@@ -32,17 +33,20 @@ namespace ts = tornasol;
 
 export namespace tornasol {
 
-    enum class texture_wrap {
+    enum class texture_wrap 
+    {
         repeat = gl::repeat
     };
 
-    enum class texture_filter {
+    enum class texture_filter 
+    {
         linear               = gl::linear,
         linear_mipmap_linear = gl::linear_mipmap_linear,
         nearest              = gl::nearest
     };
 
-    enum class texture_format {
+    enum class texture_format 
+    {
         rgb  = gl::rgb,
         rgba = gl::rgba,
     };

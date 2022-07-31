@@ -111,10 +111,10 @@ export namespace tornasol
         mat4<> get_mat() const
         {
             mat4<> m(1.0f);
-            translate(m, pos);
             rotate(m, rot.x, { 1, 0, 0 });
             rotate(m, rot.y, { 0, 1, 0 });
             rotate(m, rot.z, { 0, 0, 1 });
+            translate(m, pos);
             scale(m, sca);
             return m;
         }

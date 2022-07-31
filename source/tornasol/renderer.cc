@@ -92,8 +92,10 @@ export namespace tornasol {
         void render(texture_renderer& tex) 
         {
             tex.get_vao().bind();
-            tex.set_proj(get_proj_mat());
+            tex.get_vbo().bind();
+            tex.get_ibo().bind();
             tex.get_texture().bind();
+            tex.set_proj(get_proj_mat());
 
             if (tex.is_wireframe())
                 gl::polygon_mode(gl::front_and_back, gl::line);
