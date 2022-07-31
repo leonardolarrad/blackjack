@@ -21,7 +21,6 @@
 import std.core;
 import blackjack;
 
-
 int main(int argc, char** argv) 
 {   
     return blackjack::run_client();    
