@@ -20,6 +20,7 @@
 
 export module blackjack:client;
 import :card;
+import :hand;
 import std.core;
 import std.filesystem;
 import tornasol;
@@ -29,7 +30,7 @@ using namespace tornasol;
 
 export namespace blackjack {
 
-    void run_client() 
+    i32 run_client() 
     {
         // declare deps
         glfw_dep glfw;
@@ -49,7 +50,18 @@ export namespace blackjack {
         // setup renderer
         renderer renderer(glad, window);
         
-        card ah(card_suit::hearts, 1);
+        // setup pseudo-random number generator        
+        random_device dev;
+        mt19937 rng(dev());
+        uniform_int_distribution<u32> num_dist(1, 12);
+        uniform_int_distribution<u32> suit_dist(1, 4);
+
+        hand player_hand;
+
+        player_hand.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+        player_hand.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+        
+        //card ah(1, card_suit::back); 
 
         // main loop
         while (!exit_requested)
@@ -58,10 +70,12 @@ export namespace blackjack {
                 exit_requested = true;
 
             renderer.clear(background);
-            ah.render(renderer);
+            player_hand.render(renderer);
             
             window.swap_buffers();
             pull_events();
         }
+
+        return 0;
     }
 }

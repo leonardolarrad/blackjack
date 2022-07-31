@@ -25,25 +25,24 @@ import :image;
 import :rect;
 import :shader;
 import :types;
+import std.core;
 
+using namespace std;
 namespace ts = tornasol;
 
 export namespace tornasol {
 
-    enum class texture_wrap 
-    {
+    enum class texture_wrap {
         repeat = gl::repeat
     };
 
-    enum class texture_filter 
-    {
+    enum class texture_filter {
         linear               = gl::linear,
         linear_mipmap_linear = gl::linear_mipmap_linear,
         nearest              = gl::nearest
     };
 
-    enum class texture_format 
-    {
+    enum class texture_format {
         rgb  = gl::rgb,
         rgba = gl::rgba,
     };
@@ -63,6 +62,24 @@ export namespace tornasol {
 
         u32 get_id() const {
             return id;
+        }
+
+        // non-copyable 
+        texture(const texture&) = delete;
+        texture& operator=(const texture&) = delete;
+
+        // movable
+        texture(texture&& other) 
+            : id(other.id) 
+        {
+            other.id = 0;
+        }
+
+        texture& operator=(texture&& other) 
+        {
+            id = other.id;
+            other.id = 0;
+            return *this;
         }
 
         void bind() {
@@ -106,8 +123,7 @@ export namespace tornasol {
         }
     };
 
-    class texture_renderer 
-    {
+    class texture_renderer {
     private: 
         vertex_array  vao;
         vertex_buffer vbo;
@@ -157,6 +173,31 @@ export namespace tornasol {
             shader.set_uniform("model", mat4<>(1.0f));
         }
 
+        // non-copyable
+        texture_renderer(const texture_renderer&) = delete;
+        texture_renderer& operator=(const texture_renderer&) = delete;
+
+        // movable
+        texture_renderer(texture_renderer&& other) 
+            : vao(move(other.vao)), 
+              vbo(move(other.vbo)), 
+              ibo(move(other.ibo)),
+              texture(move(other.texture)), 
+              shader(move(other.shader)),
+              wireframe(other.wireframe)
+        {}
+
+        texture_renderer& operator=(texture_renderer&& other) 
+        {
+            vao = move(other.vao);
+            vbo = move(other.vbo);
+            ibo = move(other.ibo);
+            texture = move(other.texture);
+            shader = move(other.shader);
+            wireframe = other.wireframe;
+            return *this;
+        }
+
         vertex_array& get_vao() {
             return vao;
         }
@@ -197,7 +238,7 @@ export namespace tornasol {
             shader.set_uniform("proj", proj);
         }
 
-        void load_rect(const rect<>& rect) 
+        void set_rect(const rect<>& rect) 
         {
             const f32 vertices[] = {
                 // pos                                    // tex
@@ -227,7 +268,7 @@ export namespace tornasol {
             vao.enable_attribute(1);
         }
 
-        void load_image(const image& image) 
+        void set_image(const image& image) 
         {
             texture.bind();
             texture.set_wrap(texture_wrap::repeat, texture_wrap::repeat);

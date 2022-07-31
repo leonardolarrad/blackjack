@@ -69,7 +69,7 @@ export namespace tornasol {
             };
         }
 
-        render_stat get_stat() const {
+        render_stat get_stats() const {
             return stats;
         }
 

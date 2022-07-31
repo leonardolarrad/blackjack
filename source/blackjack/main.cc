@@ -18,10 +18,11 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
+import std.core;
 import blackjack;
 
+
 int main(int argc, char** argv) 
-{    
-    blackjack::run_client();    
-    return 0;
+{   
+    return blackjack::run_client();    
 }

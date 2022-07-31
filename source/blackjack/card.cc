@@ -28,69 +28,108 @@ using namespace tornasol;
 
 export namespace blackjack {
 
-    enum class card_suit 
+    enum class card_suit : u8
     {
         back     = 0, // 🂠
         clubs    = 1, // ♣
         diamonds = 2, // ♦
         hearts   = 3, // ♥
-        spades   = 4  // ♠
+        spades   = 4, // ♠
+        joker    = 5, // 🂿
     };
 
-    string suit_name(card_suit suit)
-    {
+    string suit_name(card_suit suit) {
         switch (suit) {
             case card_suit::back:     return "back";
             case card_suit::clubs:    return "clubs";
             case card_suit::diamonds: return "diamonds";
             case card_suit::hearts:   return "hearts";
             case card_suit::spades:   return "spades";  
-            default:                  return "";
+            case card_suit::joker:    return "joker";
+            default:                  return "unknown";
         }
     }
 
-    string suit_pip(card_suit suit) 
-    {
+    string suit_pip(card_suit suit) {
         switch (suit) {
             case card_suit::back:     return "🂠";
             case card_suit::clubs:    return "♣";
             case card_suit::diamonds: return "♦";
             case card_suit::hearts:   return "♥";
             case card_suit::spades:   return "♠";
-            default:                  return "";
+            case card_suit::joker:    return "🂿";
+            default:                  return "?";
         }
     }
 
     class card : public entity {
     private:
         texture_renderer tex;
+        u8 num;
         card_suit suit;
-        u8 number;
         
     public:
-        card(card_suit suit, u8 number) 
-            : suit(suit), number(number)
+        card(u8 num, card_suit suit)
+            : num(num), suit(suit)
         {
-            string tmp = suit_name(suit)[0] + to_string(number);
+            string tmp = to_string(num) + suit_name(suit)[0];
             wstring card_name(tmp.begin(), tmp.end());
             fs::path path(L"./content/cards/" + card_name + L".png");
 
             image image(path);
 
-            tex.load_rect({ (f32)image.width, (f32)image.height });
-            tex.load_image(image);
+            tex.set_rect({ (f32)image.width, (f32)image.height });
+            tex.set_image(image);
 
-            transform.sca = { 0.75f, 0.75f, 0.75f };
-            tex.set_model(transform.get_matrix());
+            trans.sca = { 0.75f, 0.75f, 0.75f };
         }
 
-        void update(const input& input) override {
-            // pass
+        // non-default-constructible
+        card() = delete;
+
+        // non-copyable
+        card(const card& other) = delete;
+        card& operator=(const card& other) = delete;
+
+        // movable
+        card(card&& other)
+            : tex(move(other.tex))
+            , num(other.num)
+            , suit(other.suit)
+        {
         }
 
-        void render(renderer& renderer) override {
+        card& operator = (card&& other) 
+        {
+            tex = move(other.tex);
+            num = other.num;
+            suit = other.suit;
+            return *this;
+        }
+
+        u8 get_num() const {
+            return num;
+        }
+
+        card_suit get_suit() const { 
+            return suit; 
+        }
+
+        i32 get_value() const 
+        {
+            if (suit == card_suit::back || suit == card_suit::joker)
+                return 0;
+
+            return num;
+        }
+
+        void render(renderer& renderer) override 
+        {
+            if (!enable) 
+                return;
+            
+            tex.set_model(trans.get_mat());
             renderer.render(tex);
-        }
-        
+        }       
     };
 }

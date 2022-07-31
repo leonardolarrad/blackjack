@@ -106,6 +106,15 @@
     <ClCompile Include="..\source\blackjack\server.cc">
       <Filter>blackjack</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\blackjack\game.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\hand.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\player.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\thirdparty\stb\stb_image.h">

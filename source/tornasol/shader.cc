@@ -28,8 +28,8 @@ import :matrix;
 
 using namespace std;
 
-export namespace tornasol 
-{
+export namespace tornasol {
+
     enum class shader_type
     { 
         vertex   = gl::vertex,
@@ -37,8 +37,7 @@ export namespace tornasol
         geometry = gl::geometry
     };
 
-    class shader_source 
-    {
+    class shader_source {
     private:
         u32 id;
 
@@ -51,7 +50,27 @@ export namespace tornasol
             gl::delete_shader(id);
         }
 
-        u32 get_id() {
+        // non-default-constructible
+        shader_source() = delete;
+
+        // non-copyable
+        shader_source(const shader_source&) = delete;
+        shader_source& operator=(const shader_source&) = delete;
+
+        // movable
+        shader_source(shader_source&& other)
+            : id(other.id) {
+            other.id = 0;
+        }
+
+        shader_source& operator = (shader_source&& other) 
+        {
+            id = other.id;
+            other.id = 0;
+            return *this;
+        }
+
+        u32 get_id() const {
             return id;
         }
 
@@ -67,7 +86,7 @@ export namespace tornasol
                 throw runtime_error(log());
         }
 
-        string log() 
+        string log() const
         {
             i32 len;
             gl::get_shader_iv(id, gl::info_log_length, &len);
@@ -82,8 +101,7 @@ export namespace tornasol
         }
     };
 
-    class shader
-    {
+    class shader {
     private:
         u32 id;
 
@@ -96,11 +114,29 @@ export namespace tornasol
             gl::delete_program(id);
         }
 
-        u32 get_id() {
+        // non-copyable
+        shader(const shader&) = delete;
+        shader& operator=(const shader&) = delete;
+
+        // movable
+        shader(shader&& other) 
+            : id(other.id) 
+        {
+            other.id = 0;
+        }
+
+        shader& operator=(shader&& other) 
+        {
+            id = other.id;
+            other.id = 0;
+            return *this;
+        }
+
+        u32 get_id() const {
             return id;
         }
 
-        void attach(shader_source& src) {
+        void attach(const shader_source& src) {
             gl::attach_shader(id, src.get_id());
         }
 
@@ -147,7 +183,7 @@ export namespace tornasol
             gl::uniform_matrix_4fv(get_location(name), 1, false, &m[0][0]);
         }
 
-        string log() 
+        string log() const
         {
             i32 len;
             gl::get_program_iv(id, gl::info_log_length, &len);

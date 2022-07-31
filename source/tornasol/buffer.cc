@@ -22,8 +22,8 @@ export module tornasol:buffer;
 import :types;
 import :gl;
 
-export namespace tornasol
-{
+export namespace tornasol {
+    
     enum class buffer_type 
     {
         vertex = gl::array_buffer,
@@ -37,23 +37,40 @@ export namespace tornasol
         stream_draw  = gl::stream_draw
     };
 
-    class vertex_buffer    
-    {
+    class vertex_buffer {
     private:
         u32 id;
         buffer_type type;
         u32 size;
 
     public: 
-        vertex_buffer() = delete;
-        vertex_buffer(const vertex_buffer&) = delete;
-        vertex_buffer& operator=(const vertex_buffer&) = delete;
-
         vertex_buffer(buffer_type type) 
             : id(gl::gen_buffer()), type(type), size(0) {}
         
         ~vertex_buffer() {
             gl::delete_buffer(id);
+        }
+
+        // non-default-constructible
+        vertex_buffer() = delete;
+        // non-copyable
+        vertex_buffer(const vertex_buffer&) = delete;
+        vertex_buffer& operator=(const vertex_buffer&) = delete;
+
+        // movable
+        vertex_buffer(vertex_buffer&& other) 
+            : id(other.id), type(other.type), size(other.size) 
+        {
+            other.id = 0;
+        }
+
+        vertex_buffer& operator=(vertex_buffer&& other) 
+        {
+            id = other.id;
+            type = other.type;
+            size = other.size;
+            other.id = 0;
+            return *this;
         }
 
         u32 get_id() const {
@@ -78,21 +95,35 @@ export namespace tornasol
         }
     };
 
-    class vertex_array 
-    {
+    class vertex_array {
     private:
         u32 id;
 
     public:
-        vertex_array(const vertex_array&) = delete;
-        vertex_array& operator=(const vertex_array&) = delete;
-
         vertex_array() {
             id = gl::gen_vertex_array();
         }
         
         ~vertex_array() {
             gl::delete_vertex_array(id);
+        }
+
+        // non-copyable
+        vertex_array(const vertex_array&) = delete;
+        vertex_array& operator=(const vertex_array&) = delete;
+
+        // movable
+        vertex_array(vertex_array&& other) 
+            : id(other.id) 
+        {
+            other.id = 0;
+        }
+
+        vertex_array& operator=(vertex_array&& other) 
+        {
+            id = other.id;
+            other.id = 0;
+            return *this;
         }
         
         u32 get_id() const {

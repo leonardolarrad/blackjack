@@ -97,7 +97,7 @@ export namespace tornasol
         vec3<> pos;
         vec3<> rot;
         vec3<> sca;
-
+            
         transform() 
             : pos({0.0f, 0.0f, 0.0f}),
               rot({0.0f, 0.0f, 0.0f}),
@@ -108,32 +108,15 @@ export namespace tornasol
               rot({0.0f, 0.0f, 0.0f}),
               sca({1.0f, 1.0f, 1.0f}) {}
 
-        mat4<> get_matrix() const
+        mat4<> get_mat() const
         {
-            namespace ts = tornasol;
-
             mat4<> m(1.0f);
-            ts::translate(m, pos);
-            ts::rotate(m, rot.x, { 1, 0, 0 });
-            ts::rotate(m, rot.y, { 0, 1, 0 });
-            ts::rotate(m, rot.z, { 0, 0, 1 });
-            ts::scale(m, sca);
+            translate(m, pos);
+            rotate(m, rot.x, { 1, 0, 0 });
+            rotate(m, rot.y, { 0, 1, 0 });
+            rotate(m, rot.z, { 0, 0, 1 });
+            scale(m, sca);
             return m;
-        }
-
-        void move(vec3<> v) {
-            pos = pos + v;
-        }
-
-        void rotate(vec3<> v) {
-            rot = rot + v;
-        }
-
-        void scale(vec3<> v) 
-        {
-            sca.x = sca.x * v.x;
-            sca.y = sca.y * v.y;
-            sca.z = sca.z * v.z;
         }
     };
 }

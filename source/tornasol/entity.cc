@@ -23,30 +23,22 @@ import :transform;
 import :renderer;
 import :input;
 
-export namespace tornasol 
-{
+export namespace tornasol {
+
     class entity {
     public:
         bool enable;
-        transform transform;
+        transform trans;
 
         entity()
             : enable(true) {}
-        // virtual void update(frame frame) frame.delta; frame.input, frame.input.key_released()
-        // virtual void input()
-        virtual void update(const input& input) = 0;
-        virtual void render(renderer& renderer) = 0;
 
-        void move(vec3<> v) {
-            transform.move(v);
+        virtual void update(const input& input) {
+            // pass
         }
 
-        void rotate(vec3<> v) {
-            transform.rotate(v);
-        }
-
-        void scale(vec3<> v) {
-            transform.scale(v);
+        virtual void render(renderer& renderer) {
+            // pass
         }
     };
 }
