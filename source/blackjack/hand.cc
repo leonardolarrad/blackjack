@@ -29,7 +29,6 @@ export namespace blackjack {
 
     class hand : public entity {
     private:
-        // place_holder ?? 
         vector<card> cards;
 
     public:            
@@ -37,9 +36,12 @@ export namespace blackjack {
         {
             random_device dev;
             mt19937 rng(dev());
-            uniform_real_distribution<f32> degress(0.0f, 0.5f);
-            uniform_int_distribution<u32> x(0, 10);
-            uniform_int_distribution<u32> y(0, 5);
+            uniform_real_distribution<f32> degress(0.0f, 2.5f);
+            uniform_int_distribution<i32> x(0, 10);
+            uniform_int_distribution<i32> y(0, 15);
+            uniform_int_distribution<i32> b(0, 1);
+
+            i32 side = b(rng) ? 1 : -1;
                         
             const vec3<> pivot = trans.pos;
 
@@ -47,9 +49,9 @@ export namespace blackjack {
             {
                 auto& c = cards[i];
 
-                c.trans.pos.x = pivot.x + (50 * i) + x(rng);
-                c.trans.pos.y = pivot.y + y(rng);
-                c.trans.rot.z = -degress(rng) * (f32)numbers::pi/180.0f;
+                c.trans.pos.x = pivot.x + (50 * i) + side * x(rng);
+                c.trans.pos.y = pivot.y + side * y(rng);
+                c.trans.rot.z = side * degress(rng) * (f32)numbers::pi/180.0f;
             }                
         }
 
@@ -75,7 +77,7 @@ export namespace blackjack {
         {
             i32 value = 0;         
             for (const auto& c : cards) 
-            value += c.get_value();    
+                value += c.get_value();    
 
             return value;
         }
@@ -84,14 +86,14 @@ export namespace blackjack {
             return cards.size() == 2 && get_value() == 21;
         }
 
-        bool is_bust() const {
+        bool is_busted() const {
             return get_value() > 21;
         }
 
         void render(renderer& renderer) override 
         {
             for (auto& c : cards)
-            c.render(renderer);
+                c.render(renderer);
         }
     };
 

@@ -90,27 +90,27 @@ export namespace tornasol {
             return curr_frame;
         }
         
-        bool key_pressed(key key) {
+        bool key_pressed(key key) const {
             return glfw::get_key(handle, key) == key_action::press;
         }
 
-        bool key_released(key key) {
+        bool key_released(key key) const {
             return glfw::get_key(handle, key) == key_action::release;
         }
 
-        bool mouse_pressed(mouse_button button) 
+        bool mouse_pressed(mouse_button button) const
         {
             return glfw::get_mouse_button(handle, button) 
                 == mouse_action::press;
         }
 
-        bool mouse_released(mouse_button button) 
+        bool mouse_released(mouse_button button) const
         {
             return glfw::get_mouse_button(handle, button) 
                 == mouse_action::release;
         }
 
-        vec2<> get_cursor_pos() 
+        vec2<> cursor_pos() const 
         {
             f64 x, y;
             glfw::get_cursor_pos(handle, &x, &y);

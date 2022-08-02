@@ -21,6 +21,7 @@
 export module blackjack:client;
 import :card;
 import :hand;
+import :game;
 import std.core;
 import std.filesystem;
 import tornasol;
@@ -37,7 +38,6 @@ export namespace blackjack {
         glad_dep glad(glfw.proc());
 
         bool exit_requested = false;
-        const color background = 0x003322ff;
 
         // setup main window & input     
         window window("blackjack", {1280, 720}, false);
@@ -50,60 +50,26 @@ export namespace blackjack {
         // setup renderer
         renderer renderer(glad, window);
         
-        // setup pseudo-random number generator        
-        random_device dev;
-        mt19937 rng(dev());
-        uniform_int_distribution<u32> num_dist(1, 12);
-        uniform_int_distribution<u32> suit_dist(1, 4);
-
-        hand npc_hand;
-        hand player_hand_1;
-        hand player_hand_2;
-        hand player_hand_3;
-        hand player_hand_4;
-    
-        npc_hand.trans.pos = { 560.0f, 50.0f, 0.0f };
-        player_hand_1.trans.pos = { 30.0f, 390.0f, 0.0f };
-        player_hand_2.trans.pos = { 370.0f, 390.0f, 0.0f };
-        player_hand_3.trans.pos = { 680.0f, 390.0f, 0.0f };
-        player_hand_4.trans.pos = { 1000.0f, 390.0f, 0.0f };
-
-        npc_hand.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-        npc_hand.add_card(2, card_suit::back);
-
-        player_hand_1.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-        player_hand_1.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-
-        player_hand_2.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-        player_hand_2.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+        // setup game
+        game* game = new blackjack::game();
+        vec3<> v = { 1, 2, 3 };
         
-        player_hand_3.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-        player_hand_3.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-        
-        player_hand_4.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-        player_hand_4.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-        
-
-        //player_hand2.trans.pos.x = 500;
-        //player_hand2.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-
         // main loop
         while (!exit_requested)
         {
             if (window.key_pressed(key::escape))
                 exit_requested = true;
 
-            renderer.clear(background);
+            if (window.key_pressed(key::r))
+                game = new blackjack::game();
 
-            npc_hand.render(renderer);
-            player_hand_1.render(renderer);
-            player_hand_2.render(renderer);
-            player_hand_3.render(renderer);
-            player_hand_4.render(renderer);
+            game->update(input);
+            game->render(renderer);
 
-            window.swap_buffers();
             pull_events();
         }
+
+        delete game;
 
         return 0;
     }

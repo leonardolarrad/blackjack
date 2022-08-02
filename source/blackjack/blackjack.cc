@@ -20,7 +20,9 @@
 
 export module blackjack;
 
+export import :button;
 export import :card;
-export import :hand;
 export import :client;
-
+export import :game;
+export import :hand;
+export import :image;

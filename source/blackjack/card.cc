@@ -83,7 +83,7 @@ export namespace blackjack {
             tex.set_rect({ (f32)image.width, (f32)image.height });
             tex.set_image(image);
 
-            trans.sca = { 0.15f, 0.15f, 0.15f };
+            trans.sca = { 0.80f, 0.80f, 0.80f };
             tex.set_model(trans.get_mat());
         }
 

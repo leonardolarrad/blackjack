@@ -20,74 +20,82 @@
 
 export module blackjack:game;
 
+import :button;
 import :hand;
 import :card;
-
+import :player;
+import std.core;
+import std.filesystem;
 import tornasol;
+
+using namespace std;
+using namespace std::filesystem;
+using namespace tornasol;
 
 export namespace blackjack {
 
-    enum class game_state : u8 {
-        idle,
-        playing,
-        finished,
-    };
+    class game {
+    private:
+        // components
+        color bg_color;
+        texture_renderer bg; // background
+        texture_renderer ls; // loading screen
+        vector<player> players;
 
-    enum class game_result : u8 {
-        none,
-        player_win,
-        dealer_win,
-        tie,
-    };
+        // rng
+        random_device dev;
+        mt19937 rng;
 
-    string game_result_name(game_result result) {
-        switch (result) {
-            case game_result::none:     return "none";
-            case game_result::player_win:    return "player_win";
-            case game_result::dealer_win:    return "dealer_win";
-            case game_result::tie:      return "tie";
-            default:                     return "unknown";
+    public:
+        game()
+            : rng(dev())
+        {
+            // setup game background
+            image bg_img = image(path(L"./content/game/background.png"));
+            image ls_img = image(path(L"./content/game/loading_screen.png"));
+
+            bg_color = 0x095b43ff;
+            bg.set_rect({ (f32)bg_img.width, (f32)bg_img.height });
+            bg.set_image(bg_img);
+
+            ls.set_rect({ (f32)ls_img.width, (f32)ls_img.height });
+            ls.set_image(ls_img);
+
+            // setup players
+            players.emplace_back(1);
+            players.emplace_back(2);
+            players.emplace_back(3, true);
+            players.emplace_back(4);
+
+            uniform_int_distribution<u32> num_dist(1, 12);
+            uniform_int_distribution<u32> suit_dist(1, 4);
+
+            for (i32 i = 0; i < 4; ++i)
+            {
+                auto& p = players[i];
+
+                p.trans.pos = vec3<>{ 70, 309, 0 } + f32(i) * vec3<>{320, 0, 0};
+                p.hand.trans.pos = p.trans.pos + vec3<>{ -15.f, 52.f, 0.0f};
+                p.hand.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.hand.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+            }
         }
-    }
 
-    enum class game_action : u8 {
-        none,
-        hit,
-        stand,
-        double_down,
-        split,
-        surrender,
-    };
-
-    string game_action_name(game_action action) {
-        switch (action) {
-            case game_action::none:     return "none";
-            case game_action::hit:      return "hit";
-            case game_action::stand:    return "stand";
-            case game_action::double_down:  return "double_down";
-            case game_action::split:    return "split";
-            case game_action::surrender: return "surrender";
-            default:                     return "unknown";
+        void update(const input& in)
+        {
+            for (auto& p : players)
+                p.update(in);
         }
-    }
 
-    enum class game_result_type : u8 {
-        none,
-        player_win,
-        dealer_win,
-        tie,
-    };
+        void render(renderer& renderer)
+        {
+            renderer.clear(bg_color);
+            renderer.render(bg);
+            
+            for (auto& p : players)
+                p.render(renderer);
 
-    string game_result_type_name(game_result_type type) {
-        switch (type) {
-            case game_result_type::none:     return "none";
-            case game_result_type::player_win:    return "player_win";
-            case game_result_type::dealer_win:    return "dealer_win";
-            case game_result_type::tie:      return "tie";
-            default:                     return "unknown";
+            renderer.present();
         }
-    }
-
-    enum class game_result_type_action : u8
-
+    };
 }

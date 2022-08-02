@@ -103,5 +103,9 @@ export namespace tornasol {
             gl::draw_elements(gl::triangles, 6, gl::type_uint, 0);
             ++stats.calls;
         }
+
+        void present() {
+            win.swap_buffers();
+        }
     };
 }

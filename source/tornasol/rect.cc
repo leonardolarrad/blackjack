@@ -23,12 +23,17 @@ import :size;
 import :types;
 import :vector;
 
-export namespace tornasol 
-{ 
+export namespace tornasol {
+     
     template <typename T = f32> 
     class rect {
     public:
         T x, y, w, h;
+
+        rect() = default;
+
+        rect(T x, T y, T w, T h) 
+            : x(x), y(y), w(w), h(h) {}
 
         rect(T w, T h) 
             : x(0), y(0), w(w), h(h) {}        
