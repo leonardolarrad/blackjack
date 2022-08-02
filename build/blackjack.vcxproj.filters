@@ -115,6 +115,12 @@
     <ClCompile Include="..\source\blackjack\player.cc">
       <Filter>blackjack</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\blackjack\ui_button.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\ui_image.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\thirdparty\stb\stb_image.h">
