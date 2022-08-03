@@ -60,8 +60,10 @@ export namespace blackjack {
             if (window.key_pressed(key::escape))
                 exit_requested = true;
 
-            if (window.key_pressed(key::r))
+            if (window.key_pressed(key::r)) {
+                delete game;
                 game = new blackjack::game();
+            }
 
             game->update(input);
             game->render(renderer);

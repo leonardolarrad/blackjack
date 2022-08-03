@@ -47,9 +47,14 @@ export namespace blackjack {
 
             for (i32 i = 0; i < cards.size(); ++i) 
             {
+
                 auto& c = cards[i];
 
-                c.trans.pos.x = pivot.x + (50 * i) + side * x(rng);
+                i32 offset = 50 - (5 * cards.size());
+                offset = max(offset, 30);
+                i32 stride = offset * i;
+                
+                c.trans.pos.x = pivot.x + stride + side * x(rng);
                 c.trans.pos.y = pivot.y + side * y(rng);
                 c.trans.rot.z = side * degress(rng) * (f32)numbers::pi/180.0f;
             }                
@@ -83,7 +88,7 @@ export namespace blackjack {
         }
 
         bool is_blackjack() const {
-            return cards.size() == 2 && get_value() == 21;
+            return get_value() == 21;
         }
 
         bool is_busted() const {

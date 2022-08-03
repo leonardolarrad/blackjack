@@ -78,6 +78,11 @@ export namespace blackjack {
                 //p.hand.trans.pos = p.trans.pos + vec3<>{ -15.f, 52.f, 0.0f};
                 p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
                 p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
             }
         }
 
