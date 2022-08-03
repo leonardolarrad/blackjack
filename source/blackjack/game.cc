@@ -75,9 +75,9 @@ export namespace blackjack {
                 auto& p = players[i];
 
                 p.trans.pos = vec3<>{ 70, 309, 0 } + f32(i) * vec3<>{320, 0, 0};
-                p.hand.trans.pos = p.trans.pos + vec3<>{ -15.f, 52.f, 0.0f};
-                p.hand.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-                p.hand.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                //p.hand.trans.pos = p.trans.pos + vec3<>{ -15.f, 52.f, 0.0f};
+                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
             }
         }
 

@@ -23,8 +23,8 @@ export module tornasol:stbi;
 import std.core;
 using namespace std;
 
-export namespace tornasol::stbi
-{
+export namespace tornasol::stbi {
+
    void set_flip_vertically_on_load(bool flip) {
       stbi_set_flip_vertically_on_load(flip);
    }
