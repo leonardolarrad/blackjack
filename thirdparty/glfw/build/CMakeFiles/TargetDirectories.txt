@@ -1,0 +1,4 @@
+C:/.archives/.repo/blackjack/thirdparty/glfw/build/CMakeFiles/ALL_BUILD.dir
+C:/.archives/.repo/blackjack/thirdparty/glfw/build/CMakeFiles/ZERO_CHECK.dir
+C:/.archives/.repo/blackjack/thirdparty/glfw/build/src/CMakeFiles/update_mappings.dir
+C:/.archives/.repo/blackjack/thirdparty/glfw/build/src/CMakeFiles/glfw.dir

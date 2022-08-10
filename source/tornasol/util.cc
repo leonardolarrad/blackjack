@@ -19,39 +19,19 @@
 */
 
 export module tornasol:util;
-import std.core;
-import :matrix;
-import :types;
-import :vector;
 
-using namespace std;
+import <iostream>;
+import <string_view>;
+import <format>;
+import <utility>;
 
-export namespace tornasol 
-{
+export namespace tornasol {
+
     template <typename ... A>
-    void print(string_view fmt, A&& ...args)
+    void print(std::string_view fmt, A&& ...args)
     {
-        cout << vformat(fmt, make_format_args(forward<A>(args)...)) 
-             << endl;
-    }
-
-    template <typename T, usize N>
-    void print(const vec<T, N>& v)
-    {
-        for (usize i = 0; i < N; ++i)
-            cout << format("{}", v[i]) << endl;
-        cout << endl;
-    }
-
-    template <typename T, usize M, usize N>
-    void print(const mat<T, M, N>& m)
-    {
-        for (usize row = 0; row < N; ++row)
-        {
-            for (usize col = 0; col < M; ++col)
-                cout << format("{} ", m[col][row]);
-            cout << endl;
-        }
-        cout << endl;
+        std::cout 
+            << std::vformat(fmt, std::make_format_args(std::forward<A>(args)...)) 
+            << std::endl;
     }
 }

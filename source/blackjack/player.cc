@@ -35,18 +35,27 @@ using namespace tornasol;
 
 export namespace blackjack {
 
-    enum class player_state 
+    enum class player_state
     {
         idle,
-        waiting,
-        playing,
-        won,
+		wait,
+		play,
+        win,
         lose,
-        tied
+		push,
+		bust,
+		blackjack
     };
 
+    enum class player_action 
+	{
+		none,
+		hit,
+		stand
+	};
+
     class player : public entity {
-    private:
+    protected:
         u8 num;
         bool curr;
         // state
@@ -105,11 +114,11 @@ export namespace blackjack {
         void set_state(player_state state) 
         {            
             this->state = state;
-            hit_button.enable = state == player_state::playing;
-            stand_button.enable = state == player_state::playing;
+            hit_button.enable = state == player_state::play;
+            stand_button.enable = state == player_state::play;
 
             switch (state) {
-            case player_state::won:
+            case player_state::win:
                 state_label.set_image(path(L"./content/player/win.png"));
                 state_label.enable = true;
                 break;
@@ -117,10 +126,18 @@ export namespace blackjack {
                 state_label.set_image(path(L"./content/player/lose.png"));
                 state_label.enable = true;
                 break;
-            case player_state::tied:
+            case player_state::push:
                 state_label.set_image(path(L"./content/player/tie.png"));
                 state_label.enable = true;
                 break;
+		    case player_state::blackjack:
+			    state_label.set_image(path(L"./content/player/blackjack.png"));
+			    state_label.enable = true;
+			    break;
+			case player_state::bust:
+				state_label.set_image(path(L"./content/player/bust.png"));
+				state_label.enable = true;
+				break;
             default: 
                 state_label.enable = false;
             }
@@ -136,9 +153,9 @@ export namespace blackjack {
             hand.add_card(num, suit);
 
             if (hand.is_blackjack())
-                set_state(player_state::won);
+                set_state(player_state::blackjack);
             else if (hand.is_busted())
-                set_state(player_state::lose);
+                set_state(player_state::bust);
         }
 
         void hit() {
@@ -168,34 +185,35 @@ export namespace blackjack {
             vec3<> p = trans.pos;
 
             label.trans.pos = p;    
-            placeholder.trans.pos = p + vec3<>{0.0f, 52.f, 0.0f};
-            hand.trans.pos = p + vec3<>{ -15.f, 52.f, 0.0f};
-            
             label.render(renderer);
+            
+            placeholder.trans.pos = p + vec3<>{0.0f, 52.f, 0.0f};
             placeholder.render(renderer);
+
+            state_label.trans.pos = p + vec3<>{-5.f, 312.f, 0.f};
+            state_label.render(renderer);
+            
+            hand.trans.pos = p + vec3<>{ -15.f, 52.f, 0.0f};
             hand.render(renderer);
+            
+            hit_button.trans.pos = p + vec3<>{-5.f, 330.f, 0.0f};
+            hit_button.render(renderer);
+            
+            stand_button.trans.pos = p + vec3<>{91.f, 330.f, 0.0f};
+            stand_button.render(renderer);
 
-            if (curr && !hand.is_blackjack() && !hand.is_busted()) {
-                hit_button.trans.pos = p + vec3<>{-5.f, 330.f, 0.0f};
-                stand_button.trans.pos = p + vec3<>{91.f, 330.f, 0.0f};
-
-                hit_button.render(renderer);
-                stand_button.render(renderer);
-            }
-
-            if (hand.is_busted())
+            if (state == player_state::bust)
             {
                 busted.trans.pos = p + vec3<>{-50.f, 65.f, 0.f};
                 busted.render(renderer);
             }
-            else if (hand.is_blackjack()) 
+            else if (state == player_state::blackjack) 
             {
                 decor.trans.pos = p + vec3<>{-55.0f, 100.0f, 0.0f};
                 decor.render(renderer);
             }               
 
-            state_label.trans.pos = p + vec3<>{-15.f, 320.f, 0.f};
-            state_label.render(renderer);
+            
         }
     };
 }

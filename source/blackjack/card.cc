@@ -125,6 +125,12 @@ export namespace blackjack {
             if (suit == card_suit::back || suit == card_suit::joker)
                 return 0;
 
+            if (num > 10) 
+                return 10;
+
+            if (num == 1) 
+                return 11;
+
             return num;
         }
 

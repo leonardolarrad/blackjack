@@ -18,12 +18,9 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <thirdparty/glad/glad.h>
 export module tornasol:gl;
 import :types;
-
-import std.core;
-using namespace std;
+import "glad.h";
 
 export namespace tornasol::gl 
 {

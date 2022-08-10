@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\.archives\.repo\blackjack\thirdparty\glfw\build\CMakeFiles\38eae3594bdae0e000ead861c57b26f0\update_mappings.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\.archives\.repo\blackjack\thirdparty\glfw\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\.archives\.repo\blackjack\thirdparty\glfw\src\mappings.h.in">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="C:\.archives\.repo\blackjack\thirdparty\glfw\CMake\GenerateMappings.cmake" />
+    <None Include="C:\.archives\.repo\blackjack\thirdparty\glfw\build\src\CMakeFiles\update_mappings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{7343BAE9-F516-3D46-9313-275749683241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C27FA5E8-C8D6-344D-BC02-F872E7F062F6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

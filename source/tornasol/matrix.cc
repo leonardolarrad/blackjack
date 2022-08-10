@@ -18,16 +18,17 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
+module;
 #include <assert.h>
+
 export module tornasol:matrix;
-import std.core;
+
 import :types;
 import :vector;
+import <cmath>;
 
-using namespace std;
+export namespace tornasol {
 
-export namespace tornasol 
-{
     template <typename T, usize M, usize N = M>
     class mat;
 
@@ -36,15 +37,14 @@ export namespace tornasol
     template <typename T = float> using mat4 = mat<T, 4>;
 
     template <typename T, usize M, usize N>
-    class mat
-    {
+    class mat {
     private:
         vec<T, N> data[M];    
 
     public:
         mat() = default;
 
-        mat(initializer_list<T> arr) 
+        mat(std::initializer_list<T> arr) 
         {   
             assert(arr.size() == M * N);
 
@@ -229,8 +229,7 @@ export namespace tornasol
     }
 
     template <typename T>
-    T det(const mat<T, 1>& m)
-    {
+    T det(const mat<T, 1>& m) {
         return m[0][0];
     }
 

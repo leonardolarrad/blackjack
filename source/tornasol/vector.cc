@@ -18,11 +18,13 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
+module;
 #include <assert.h>
+
 export module tornasol:vector;
-import std.core;
+
 import :types;
-using namespace std;
+import <cmath>;
 
 export namespace tornasol {
 
@@ -41,10 +43,10 @@ export namespace tornasol {
     public:    
         vec() = default;
 
-        vec(initializer_list<T> arr)
+        vec(std::initializer_list<T> arr)
         {
             assert(arr.size() == N); 
-            copy(arr.begin(), arr.end(), values);
+            std::copy(arr.begin(), arr.end(), values);
         }
 
         T& operator [] (usize i) { 
@@ -237,7 +239,7 @@ export namespace tornasol {
         for (int i = 0; i < N; ++i)
             lensqr += v[i] * v[i];
 
-        return (T) sqrt(lensqr);
+        return (T) std::sqrt(lensqr);
     }
 
     template <typename T, usize N>
@@ -280,7 +282,7 @@ export namespace tornasol {
             return T(0);
 
         const T cos = dot(u, v) / divisor;
-        return (cos <= T(1)) ? acos(cos) : T(0);
+        return (cos <= T(1)) ? std::acos(cos) : T(0);
     }
 
     template <typename T, usize N>

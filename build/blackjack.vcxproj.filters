@@ -17,6 +17,9 @@
     <Filter Include="thirdparty\stb">
       <UniqueIdentifier>{317a6c58-2c76-4751-8317-d0a658fcaab2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="thirdparty\asio">
+      <UniqueIdentifier>{ea74271e-af47-40fb-9b9b-12bc47f7abeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\tornasol\color.cc">
@@ -121,6 +124,15 @@
     <ClCompile Include="..\source\blackjack\ui_image.cc">
       <Filter>blackjack</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\blackjack\dealer.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\thirdparty\asio\include\asio.cc">
+      <Filter>thirdparty\asio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\blackjack\def.cc">
+      <Filter>blackjack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\thirdparty\stb\stb_image.h">
@@ -131,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="..\thirdparty\glad\khrplatform.h">
       <Filter>thirdparty\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\asio\include\asio.hpp">
+      <Filter>thirdparty\asio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

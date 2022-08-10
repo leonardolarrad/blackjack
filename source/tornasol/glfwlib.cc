@@ -18,21 +18,21 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
+module;
 #include <assert.h>
-#include <thirdparty/glfw/glfw3.h>
 
 export module tornasol:glfw;
-import std.core;
+
 import :size;
 import :types;
 import :vector;
 import :version;
 
-using namespace std;
+import <new>;
+import <stdexcept>;
+import "glfw3.h";
 
 export namespace tornasol::glfw {
-
-    /* initialization, version and error module */
 
     using error_func = GLFWerrorfun;
 
@@ -633,7 +633,6 @@ export namespace tornasol::glfw {
     float get_time() { 
         return glfwGetTime(); 
     }
-
 }
 
 export namespace tornasol {
@@ -651,9 +650,9 @@ export namespace tornasol {
             assert(code != (int) glfw::error::no_error);
 
             if (code == (int) glfw::error::out_of_memory)
-                throw bad_alloc();
+                throw std::bad_alloc();
             else
-                throw runtime_error(message);
+                throw std::runtime_error(message);
         }
 
     public:
@@ -662,7 +661,7 @@ export namespace tornasol {
             glfw::set_error_callback(error_callback);
 
             if (!glfw::init())
-                throw runtime_error("failed to initialize glfw");
+                throw std::runtime_error("failed to initialize glfw");
         }
 
         ~glfw_dep() {

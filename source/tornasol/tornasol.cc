@@ -26,7 +26,7 @@ export import :glad;
 export import :glfw;
 export import :stbi;
 
-// core
+// engine
 export import :buffer;
 export import :color;
 export import :entity;

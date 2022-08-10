@@ -23,6 +23,7 @@ export module blackjack:game;
 import :button;
 import :hand;
 import :card;
+import :dealer;
 import :player;
 import std.core;
 import std.filesystem;
@@ -41,6 +42,7 @@ export namespace blackjack {
         texture_renderer bg; // background
         texture_renderer ls; // loading screen
         vector<player> players;
+        dealer dea;
 
         // rng
         random_device dev;
@@ -74,16 +76,23 @@ export namespace blackjack {
             {
                 auto& p = players[i];
 
-                p.trans.pos = vec3<>{ 70, 309, 0 } + f32(i) * vec3<>{320, 0, 0};
-                //p.hand.trans.pos = p.trans.pos + vec3<>{ -15.f, 52.f, 0.0f};
-                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
-                p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+                p.trans.pos = vec3<>{ 70, 325, 0 } + f32(i) * vec3<>{320, 0, 0};
+                
                 p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
                 p.add_card(num_dist(rng), (card_suit)suit_dist(rng));
             }
+
+            // setup dealer
+            dea.trans.pos = { 560.0f, -40.0f, 0.0f };
+            //dea.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+            //dea.add_card(num_dist(rng), (card_suit)suit_dist(rng));
+            //dea.add_card(3, card_suit::back);
+            dea.add_card(1,  (card_suit)suit_dist(rng));
+            dea.add_card(1,  (card_suit)suit_dist(rng));
+            dea.add_card(4,  (card_suit)suit_dist(rng));
+            dea.add_card(10, (card_suit)suit_dist(rng));
+            dea.add_card(1,  (card_suit)suit_dist(rng));
+            
         }
 
         void update(const input& in)
@@ -93,13 +102,18 @@ export namespace blackjack {
         }
 
         void render(renderer& renderer)
-        {
+        {   
+            // render background
             renderer.clear(bg_color);
             renderer.render(bg);
-            
+
+            // render dealer & players            
             for (auto& p : players)
                 p.render(renderer);
 
+            dea.render(renderer);
+
+            // present
             renderer.present();
         }
     };

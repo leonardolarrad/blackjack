@@ -19,18 +19,15 @@
 */
 
 export module tornasol:image;
+
 import :types;
 import :stbi;
-import std.core;
-import std.filesystem;
-using namespace std;
-namespace fs = std::filesystem;
+import <filesystem>;
 
 export namespace tornasol
 {
    class image {
    public:
-
       i32   width;
       i32   height;
       i32   channels;

@@ -79,16 +79,21 @@ export namespace blackjack {
         }
 
         i32 get_value() const 
-        {
-            i32 value = 0;         
-            for (const auto& c : cards) 
-                value += c.get_value();    
+        {            
+            i32 value = 0;
+            for (auto& c : cards)
+                value += c.get_value();
+
+            // if hand is over 21, count ace as 1
+            for (auto& c : cards)
+                if (c.get_value() == 11 && value > 21)
+                    value -= 10;
 
             return value;
         }
 
         bool is_blackjack() const {
-            return get_value() == 21;
+            return get_value() == 21 && cards.size() == 2;
         }
 
         bool is_busted() const {

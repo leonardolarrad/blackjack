@@ -21,16 +21,16 @@
 export module tornasol:version;
 import :types;
 
-export namespace tornasol 
-{
-    class version {
-    public:
+export namespace tornasol {
+
+    struct version 
+    {
         u64 major;
         u64 minor;
         u64 patch;
     };
 
-    version tornasol_version() {
+    version get_version() {
         return {
             .major = 0,
             .minor = 1,

@@ -27,29 +27,26 @@ import :glad;
 import :rect;
 import :shader;
 import :size;
+import :texture;
 import :transform;
 import :types;
 import :vector;
 import :window;
-import :texture;
-
-import std.core;
-using namespace std;
 
 export namespace tornasol {
 
-    class render_stat {
+    class render_stats {
     public:
         u64 frame;
         u64 calls;
 
-        render_stat() 
+        render_stats() 
             : frame(0), calls(0) {}
     };
 
     class renderer {
     private:
-        render_stat stats;
+        render_stats stats;
         window& win;
 
     public:
@@ -69,7 +66,7 @@ export namespace tornasol {
             };
         }
 
-        render_stat get_stats() const {
+        render_stats get_stats() const {
             return stats;
         }
 

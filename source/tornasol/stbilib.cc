@@ -18,10 +18,10 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <thirdparty/stb/stb_image.h>
 export module tornasol:stbi;
-import std.core;
-using namespace std;
+import :types;
+import "stb_image.h";
+import <stdexcept>;
 
 export namespace tornasol::stbi {
 
@@ -34,7 +34,7 @@ export namespace tornasol::stbi {
       byte* data = (byte*) stbi_load(filename, x, y, comp, req_comp);
       
       if (data == nullptr)
-         throw runtime_error("Failed to load image");
+         throw std::runtime_error("failed to load image");
       
       return data;
    }

@@ -19,14 +19,14 @@
 */
 
 export module tornasol:shader;
-import std.core;
+
 import :color;
 import :gl;
 import :types;
 import :vector;
 import :matrix;
 
-using namespace std;
+import <stdexcept>;
 
 export namespace tornasol {
 
@@ -83,10 +83,10 @@ export namespace tornasol {
             gl::get_shader_iv(id, gl::compile_status, &status);
 
             if (!status)
-                throw runtime_error(log());
+                throw std::runtime_error(log());
         }
 
-        string log() const
+        std::string log() const
         {
             i32 len;
             gl::get_shader_iv(id, gl::info_log_length, &len);
@@ -94,7 +94,7 @@ export namespace tornasol {
             if (len <= 0)
                 return "";
 
-            string log; 
+            std::string log; 
             log.resize(len);
             gl::get_shader_info_log(id, len, &len, &log[0]);
             return log;
@@ -148,7 +148,7 @@ export namespace tornasol {
             gl::get_program_iv(id, gl::link_status, &status);
 
             if (!status)
-                throw runtime_error(log());
+                throw std::runtime_error(log());
         }
 
         void use() {
@@ -183,7 +183,7 @@ export namespace tornasol {
             gl::uniform_matrix_4fv(get_location(name), 1, false, &m[0][0]);
         }
 
-        string log() const
+        std::string log() const
         {
             i32 len;
             gl::get_program_iv(id, gl::info_log_length, &len);
@@ -191,7 +191,7 @@ export namespace tornasol {
             if (len <= 0)
                 return "";
 
-            string log;
+            std::string log;
             log.resize(len);
             gl::get_program_info_log(id, len, &len, &log[0]);
             return log;

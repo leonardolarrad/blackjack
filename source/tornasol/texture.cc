@@ -15,10 +15,11 @@
        appreciated but is not required.
     2. Altered source versions must be plainly marked as such, and must not be
        misrepresented as being the original software.
-    3. This notice may not be removed or altered from any source distribution.
+    3. This notice may not be restd::moved or altered from any source distribution.
 */
 
 export module tornasol:texture;
+
 import :buffer;
 import :gl;
 import :image;
@@ -26,10 +27,8 @@ import :rect;
 import :shader;
 import :types;
 import :util;
-import std.core;
 
-using namespace std;
-namespace ts = tornasol;
+import <utility>;
 
 export namespace tornasol {
 
@@ -183,21 +182,21 @@ export namespace tornasol {
 
         // movable
         texture_renderer(texture_renderer&& other) 
-            : vao(move(other.vao)), 
-              vbo(move(other.vbo)), 
-              ibo(move(other.ibo)),
-              texture(move(other.texture)), 
-              shader(move(other.shader)),
+            : vao(std::move(other.vao)), 
+              vbo(std::move(other.vbo)), 
+              ibo(std::move(other.ibo)),
+              texture(std::move(other.texture)), 
+              shader(std::move(other.shader)),
               wireframe(other.wireframe)
         {}
 
         texture_renderer& operator=(texture_renderer&& other) 
         {
-            vao = move(other.vao);
-            vbo = move(other.vbo);
-            ibo = move(other.ibo);
-            texture = move(other.texture);
-            shader = move(other.shader);
+            vao = std::move(other.vao);
+            vbo = std::move(other.vbo);
+            ibo = std::move(other.ibo);
+            texture = std::move(other.texture);
+            shader = std::move(other.shader);
             wireframe = other.wireframe;
             return *this;
         }

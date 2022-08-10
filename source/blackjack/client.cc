@@ -22,6 +22,7 @@ export module blackjack:client;
 import :card;
 import :hand;
 import :game;
+import :server;
 import std.core;
 import std.filesystem;
 import tornasol;
@@ -30,8 +31,133 @@ using namespace std;
 using namespace tornasol;
 
 export namespace blackjack {
+    /*
+    class client {
+    private:
+        assio::io_context& io_context;
+        assio::ip::tcp::socket socket;
+        message read_msg;
+        message_queue write_msgs;
+    
+    public:
+        client(asio::io_context& io_context,
+            const asio::ip::tcp::resolver::result_type& endpoints)
+            : io_context(io_context), 
+              socket(io_context) 
+        {
+            connect(endpoints);
+        }
 
-    i32 run_client() 
+        void write(const message& msg) 
+        {
+            asio::post(
+                io_context, 
+                [this, msg]() {
+                    bool write_in_progress = !write_msgs.empty();
+                    write_msgs.push_back(msg);
+                    if (!write_in_progress) {
+                        write_async();
+                    }
+            });
+        }
+
+        void close() {
+            asio::post(io_context, [this]() { socket.close(); });
+        }
+
+    private:
+        void connect(const asio::ip::tcp::resolver::results_type& endpoints) 
+        {
+            asio::async_connect(
+                socket, 
+                endpoints,
+                [this](std::error_code err, asio::ip::tcp::endpoint) {
+                    if (!err)
+                        read_header_async();
+                }
+            );
+        }
+
+        void read_header_async() 
+        {
+            asio::async_read(
+                socket, 
+                assio::buffer(read_msg.get_data(), message::max_header_lens), 
+                [this](std::error_code err, std::size_t len) {
+                    if (!err && read_msg.decode_header()) 
+                        read_body_async();
+                    else 
+                        socket.close();
+                }
+            );
+        }
+
+        void read_body_async() 
+        {
+            asio::async_read(
+                socket, 
+                assio::buffer(read_msg.get_body(), read_msg.get_body_len()), 
+                [this](std::error_code err, std::size_t len) {
+                    if (!err) {
+                        ts::print("message: {}", read_msg.get_body());
+                        read_header_async();
+                    }
+                    else 
+                        socket.close();
+                }
+            );
+        }
+
+        void write_async() 
+        {            
+            asio::async_write(
+                socket, 
+                assio::buffer(
+                    write_msgs.front().data(), 
+                    write_msgs.front().length()
+                ), 
+                [this](std::error_code err, std::size_t len) {
+                    if (!err) 
+                    {
+                        write_msgs.pop_front();
+
+                        if (!write_msgs.empty())
+                            write_async();
+                    }
+                    else 
+                        socket.close();
+                }
+            );
+        }
+    }
+
+    i32 run_client()
+    {
+        asio::io_context io_context;
+        asio::ip::tcp::resolver resolver(io_context);
+        asio::ip::tcp::resolver::results_type endpoints = 
+            resolver.resolve("localhost", "4067");
+        client client(io_context, endpoints);
+
+        std::thread thread([&io_context]() { io_context.run(); });
+
+        char line[message::max_body_length + 1];
+        while (std::cin.getline(line, message::max_body_length + 1))
+        {
+            message msg;
+            msg.get_body_len(std::strlen(line));
+            std::memcpy(msg.get_body(), line, msg.get_body_len());
+            msg.encode_header();
+            client.write(msg);
+        }
+
+        client.close();
+        thread.join();
+
+        return 0;
+    }
+    */
+    i32 run_client2() 
     {
         // declare deps
         glfw_dep glfw;
@@ -52,7 +178,6 @@ export namespace blackjack {
         
         // setup game
         game* game = new blackjack::game();
-        vec3<> v = { 1, 2, 3 };
         
         // main loop
         while (!exit_requested)
@@ -72,7 +197,6 @@ export namespace blackjack {
         }
 
         delete game;
-
         return 0;
     }
 }

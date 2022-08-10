@@ -19,44 +19,44 @@
 */
 
 export module tornasol:window;
+
 import :glfw;
 import :input;
 import :size;
 import :types;
 import :vector;
 
-import std.core;
-using namespace std;
+import <functional>;
+import <string_view>;
 
-export namespace tornasol 
-{
-    class window
-    {
+export namespace tornasol {
+
+    class window {
     private:
         glfw::window_handle handle;
 
     public:
-        function<void(vec2<i32>)>     on_move;
-        function<void(size2<i32>)>    on_resize;
-        function<void(void)>          on_close;
-        function<void(void)>          on_minimize;
-        function<void(void)>          on_maximize;
-        function<void()>              on_focus;
-        function<void()>              on_blur;
-        function<void()>              on_refresh;
-        function<void(vec2<>)>        on_cursor_move;
-        function<void()>              on_cursor_enter;
-        function<void()>              on_cursor_leave;
-        function<void(vec2<>)>        on_scroll;
-        function<void(mouse_button, 
-           mouse_action, key_mod)>    on_mouse_button;
-        function<void(key, i32, 
-           key_action, key_mod)>      on_key;
-        function<void(u32)>           on_char;
-        function<void(u32, key_mod)>  on_char_mods;
-        function<void(size2<>)>       on_framebuffer_resize;
+        std::function<void(vec2<i32>)>     on_move;
+        std::function<void(size2<i32>)>    on_resize;
+        std::function<void(void)>          on_close;
+        std::function<void(void)>          on_minimize;
+        std::function<void(void)>          on_maximize;
+        std::function<void()>              on_focus;
+        std::function<void()>              on_blur;
+        std::function<void()>              on_refresh;
+        std::function<void(vec2<>)>        on_cursor_move;
+        std::function<void()>              on_cursor_enter;
+        std::function<void()>              on_cursor_leave;
+        std::function<void(vec2<>)>        on_scroll;
+        std::function<void(mouse_button, 
+           mouse_action, key_mod)>         on_mouse_button;
+        std::function<void(key, i32, 
+           key_action, key_mod)>           on_key;
+        std::function<void(u32)>           on_char;
+        std::function<void(u32, key_mod)>  on_char_mods;
+        std::function<void(size2<>)>       on_framebuffer_resize;
 
-        window(string_view title, size2<> size, bool resizable = true)
+        window(std::string_view title, size2<> size, bool resizable = true)
         {
             glfw::window_hint(glfw::attribute::context_ver_major, 4);
             glfw::window_hint(glfw::attribute::context_ver_minor, 0);
@@ -107,7 +107,8 @@ export namespace tornasol
             glfw::hide_window(handle);
         }
 
-        void close() {
+        void close() 
+        {
             glfw::set_window_should_close(handle, true);
             glfw::destroy_window(handle);
         }

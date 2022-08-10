@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\source\tornasol\input.cc" />
+    <ClCompile Include="..\..\source\tornasol\matrix.cc" />
+    <ClCompile Include="..\..\source\tornasol\rect.cc" />
+    <ClCompile Include="..\..\source\tornasol\renderer.cc" />
+    <ClCompile Include="..\..\source\tornasol\shader.cc" />
+    <ClCompile Include="..\..\source\tornasol\size.cc" />
+    <ClCompile Include="..\..\source\tornasol\stbilib.cc" />
+    <ClCompile Include="..\..\source\tornasol\texture.cc" />
+    <ClCompile Include="..\..\source\tornasol\tornasol.cc" />
+    <ClCompile Include="..\..\source\tornasol\transform.cc" />
+    <ClCompile Include="..\..\source\tornasol\types.cc" />
+    <ClCompile Include="..\..\source\tornasol\util.cc" />
+    <ClCompile Include="..\..\source\tornasol\vector.cc" />
+    <ClCompile Include="..\..\source\tornasol\version.cc" />
+    <ClCompile Include="..\..\source\tornasol\window.cc" />
+    <ClCompile Include="..\..\source\tornasol\buffer.cc" />
+    <ClCompile Include="..\..\source\tornasol\color.cc" />
+    <ClCompile Include="..\..\source\tornasol\entity.cc" />
+    <ClCompile Include="..\..\source\tornasol\gladlib.cc" />
+    <ClCompile Include="..\..\source\tornasol\glfwlib.cc" />
+    <ClCompile Include="..\..\source\tornasol\gllib.cc" />
+    <ClCompile Include="..\..\source\tornasol\image.cc" />
+  </ItemGroup>
+</Project>

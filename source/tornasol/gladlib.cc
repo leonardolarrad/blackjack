@@ -18,12 +18,14 @@
     3. This notice may not be removed or altered from any source distribution.
 */
 
-#include <thirdparty/glad/glad.h>;
 export module tornasol:glad;
-import std.core;
 
-export namespace tornasol::glad
-{
+import "glad.h";
+import <stdexcept>;
+
+export 
+namespace tornasol::glad {
+
     using load_proc = GLADloadproc;
 
     int load_gl_loader(load_proc load) {
@@ -31,10 +33,10 @@ export namespace tornasol::glad
     }
 }
 
-export namespace tornasol 
-{    
-    class glad_dep
-    {
+export 
+namespace tornasol {
+
+    class glad_dep {
     private:
         const glad::load_proc proc;
 
@@ -42,8 +44,7 @@ export namespace tornasol
         glad_dep(glad::load_proc proc)
             : proc(proc) {}
 
-        void load() 
-        {
+        void load() {
             if (!glad::load_gl_loader(proc))
                 throw std::runtime_error("failed to load glad");
         }

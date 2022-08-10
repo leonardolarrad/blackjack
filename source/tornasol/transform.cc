@@ -19,13 +19,14 @@
 */
 
 export module tornasol:transform;
-import std.core;
+
 import :types;
 import :matrix;
-using namespace std;
 
-export namespace tornasol 
-{
+import <cmath>;
+
+export namespace tornasol {
+
     template<typename T = f32>
     mat4<T> ortho(T left, T right, T bottom, T top, T near, T far)
     {
@@ -66,8 +67,8 @@ export namespace tornasol
     template<typename T = f32>
     mat4<T>& rotate(mat4<T>& m, T a,  const vec3<T>& v)
     {   
-        T c = cos(a);
-        T s = sin(a);
+        T c = std::cos(a);
+        T s = std::sin(a);
 
         vec3<T> axis = normalize(v);
         vec3<T> temp = (T(1)-c) * axis;

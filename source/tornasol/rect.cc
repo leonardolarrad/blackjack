@@ -19,6 +19,7 @@
 */
 
 export module tornasol:rect;
+
 import :size;
 import :types;
 import :vector;

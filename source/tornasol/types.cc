@@ -19,21 +19,26 @@
 */
 
 export module tornasol:types;
-import std.core;
-import std.memory;
 
-export namespace tornasol 
-{
+import <cstddef>;
+import <cstdint>;
+import <cmath>;
+import <memory>;
+import <filesystem>;
+
+export 
+namespace tornasol {
+
+   using std::byte;
+
    using i8  = std::int8_t;
    using i16 = std::int16_t;
    using i32 = std::int32_t;
    using i64 = std::int64_t;
-
    using u8  = std::uint8_t;
    using u16 = std::uint16_t;
    using u32 = std::uint32_t;
    using u64 = std::uint64_t;
-
    using f32 = std::float_t;
    using f64 = std::double_t;
 
@@ -44,3 +49,9 @@ export namespace tornasol
    template <typename T> using unique = std::unique_ptr<T>;
    template <typename T> using weak   = std::weak_ptr<T>;
 }
+
+export 
+namespace ts = tornasol;
+
+export
+namespace fs = std::filesystem;

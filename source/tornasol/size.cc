@@ -21,8 +21,8 @@
 export module tornasol:size;
 import :types;
 
-export namespace tornasol 
-{
+export namespace tornasol {
+
     template <typename T = i32>
     class size2
     {    
